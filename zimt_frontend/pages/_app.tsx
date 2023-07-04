@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react'
 import { BasicRoomDetails } from '../functions/fetchRooms'
 import { PostRquest } from '../functions/PostRoomBooking'
 import '../styles/_app.css'
-import Sidebar from '../components/Sidebar'
-import Searchbar from '../components/Searchbar'
+import Sidebar from '../components/sidebar'
+import Searchbar from '../components/searchbar'
+import LevelSelector from '../components/LevelSelector'
 
 const InitalPostRequest: PostRquest = {
   startTime: "",
@@ -34,22 +35,22 @@ const placeholderdata2: BasicRoomDetails = {
 export default function App() {
 
   const [roomArray, setRoomArray] = useState<BasicRoomDetails[]>([])
-  const [level, setLevel] = useState<number>(1)
+  const [selectedLevel, setSelectedLevel] = useState<number>(1)
   const [selectedRoom, setSelectedRoom] = useState<BasicRoomDetails | undefined>(undefined)
   const [postRequest, setPostRequest] = useState<PostRquest>(InitalPostRequest)
   const [inputText, setInputText] = useState("")
 
   useEffect(() => {
-    const temp = async () => await getRooms(level)
+    const temp = async () => await getRooms(selectedLevel)
     temp().then(data => setRoomArray([placeholderdata, placeholderdata2, placeholderdata, placeholderdata2, placeholderdata, placeholderdata2, placeholderdata, placeholderdata2, placeholderdata2, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata]))
-  }, [level])
+  }, [selectedLevel])
 
   useEffect(() => {
     console.log(selectedRoom)
   }, [selectedRoom, setSelectedRoom])
 
   const handelLevelChange = (level: number) => {
-    setLevel(level)
+    setSelectedLevel(level)
   }
 
   const handelRequestChange = (newRequest: object) => {
@@ -78,6 +79,7 @@ export default function App() {
         />
         <div className='map-body'>
           Put map here.
+          <LevelSelector selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />
         </div>
       </div>
     </>

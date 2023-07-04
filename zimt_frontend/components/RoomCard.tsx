@@ -36,16 +36,15 @@ const RoomCard = (props: IRoomCard) => {
     return (
         <StyledRoomCard
             isSelected={props?.selectedRoom && props.room.id === props.selectedRoom.id}
-            className={props.className}
+            {...props}
             onClick={() => {
                 !props?.selectedRoom || !(props.room.id === props.selectedRoom.id) ?
                     props.handleOnClick(props.room) : props.handleOnClick(undefined)
-            }
+                }
             }
         >
             {props.name}
         </StyledRoomCard>
     )
 }
-
 export default RoomCard

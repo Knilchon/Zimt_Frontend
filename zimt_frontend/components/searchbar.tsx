@@ -8,7 +8,7 @@ interface ISearchbarProps {
 
 const Searchbar = (props: ISearchbarProps) => {
     return (
-        <input value={props.inputText} className={props.className}
+        <input value={props.inputText} {...props}
             onChange={(e) => { props.setInputText(e.target.value) }}
         />
     )
