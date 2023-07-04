@@ -7,7 +7,7 @@ export default function App() {
   return (
     <>
       <header className='App-header'>
-        Das ist ein Header.
+        <h1>Das ist ein Header.</h1>
         <Searchbar className='search-bar' searchBarTextClassName='search-bar-text'/>
       </header>
       <div className='map-and-sidebar'>
