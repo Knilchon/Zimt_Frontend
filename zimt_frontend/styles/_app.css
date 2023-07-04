@@ -18,7 +18,7 @@
   min-height: 10vh;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: left;
   font-size: calc(10px + 2vmin);
   color: rgb(214, 214, 214);
@@ -40,11 +40,12 @@
 
 body{
     margin: 0cm;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .side-bar{
     padding: 2%;
-    width: 20vh;
+    width: 30vh;
     height: 100vh;
     background-color: #282c34;
     display: flex;
