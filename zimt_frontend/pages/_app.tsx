@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app'
 import '../styles/_app.css'
+import Sidebar from '../components/sidebar'
 
 export default function App() {
   return (
@@ -8,9 +9,7 @@ export default function App() {
         <p>Das ist ein Header.</p>
       </header>
       <div className='map-and-sidebar'>
-        <div className='side-bar'>
-          <p>Das ist eine Sidebar.</p>
-        </div>
+        <Sidebar className='side-bar'/>
         <div className='map-body'>
           <p>Das ist die große Oberfläche neben der Sidebar.</p>
         </div>
