@@ -70,20 +70,11 @@ body{
 }
 
 .search-bar{
-  background-color: aliceblue;
   padding-left: 1em;
-  width: 20em;  
-  height: 2.45em ;
+  width: 70vh;  
+  height: max;
   display: flex;
   margin: 0.75em;
   flex-direction: column;
-}
-
-.search-bar-text{
-  color: rgb(138, 138, 138); 
-  height: inherit;
-  width: inherit;
-  text-align: start;
-  margin-top: 0em;
-  padding: 0.5em;
+  font-size: 12pt;
 }

@@ -1,10 +1,14 @@
+import { useState } from "react"
+
+
 const searchbar = (props: any) => {
+
+    const [inputText,setInputText] = useState("")
+
     return(
-        <div className={props.className}>
-            <div className={props.searchBarTextClassName}>
-                Search...
-            </div>
-        </div>
+        <input value={inputText} className={props.className}
+        onChange={(e) => {setInputText(e.target.value)}}
+        />
     )
 }
 
