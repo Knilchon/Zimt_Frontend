@@ -1,15 +1,17 @@
-import { useState } from "react"
+import { Dispatch, SetStateAction } from "react"
 
+interface ISearchbarProps {
+    className: string,
+    inputText: string,
+    setInputText: Dispatch<SetStateAction<string>>
+}
 
-const searchbar = (props: any) => {
-
-    const [inputText,setInputText] = useState("")
-
-    return(
-        <input value={inputText} className={props.className}
-        onChange={(e) => {setInputText(e.target.value)}}
+const Searchbar = (props: ISearchbarProps) => {
+    return (
+        <input value={props.inputText} className={props.className}
+            onChange={(e) => { props.setInputText(e.target.value) }}
         />
     )
 }
 
-export default searchbar
+export default Searchbar
