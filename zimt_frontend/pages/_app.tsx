@@ -3,6 +3,9 @@ import getRooms from '../functions/fetchRooms'
 import { useEffect, useState } from 'react'
 import { BasicRoomDetails } from '../functions/fetchRooms'
 import { PostRquest } from '../functions/PostRoomBooking'
+import '../styles/_app.css'
+import Sidebar from '../components/sidebar'
+import Searchbar from '../components/searchbar'
 
 const InitalPostRequest: PostRquest = {
   startTime: "",
@@ -35,5 +38,18 @@ export default function App() {
     setSelectedRoom(room)
   }
 
-  return <div onClick={() => handelLevelChange(1)} >hi</div>
+  return (
+    <>
+      <header className='App-header'>
+        <h1>[Insert App name]</h1>
+        <Searchbar className='search-bar'/>
+      </header>
+      <div className='map-and-sidebar'>
+        <Sidebar className='side-bar'/>
+        <div className='map-body'>
+          Put map here.
+        </div>
+      </div>
+    </>
+  )
 }
