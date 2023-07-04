@@ -9,7 +9,7 @@ export default function App() {
         <p>Das ist ein Header.</p>
       </header>
       <div className='map-and-sidebar'>
-        <Sidebar className='side-bar'/>
+        <Sidebar className='side-bar' handleOnClick={() => {}} room={{}} />
         <div className='map-body'>
           <p>Das ist die große Oberfläche neben der Sidebar.</p>
         </div>
