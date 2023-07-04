@@ -7,13 +7,13 @@ export default function App() {
   return (
     <>
       <header className='App-header'>
-        <h1>Das ist ein Header.</h1>
+        <h1>[Insert App name]</h1>
         <Searchbar className='search-bar'/>
       </header>
       <div className='map-and-sidebar'>
         <Sidebar className='side-bar'/>
         <div className='map-body'>
-          <p>Das ist die große Oberfläche neben der Sidebar.</p>
+          Put map here.
         </div>
       </div>
     </>

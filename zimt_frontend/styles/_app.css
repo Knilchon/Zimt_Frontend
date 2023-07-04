@@ -44,13 +44,13 @@ body{
 
 .side-bar{
     padding: 2%;
-    width: 35vh;
+    width: 20%;
     height: 100vh;
     background-color: #192949;
     display: flex;
     flex-direction: column;
     justify-content: left;
-    font-size: calc(10px + 2vmin);
+    font-size: 12pt;
     color: rgb(214, 214, 214);
 }
 
@@ -71,7 +71,7 @@ body{
 
 .search-bar{
   padding-left: 1em;
-  width: 70vh;  
+  width: 20%;  
   height: max;
   display: flex;
   margin: 0.75em;
