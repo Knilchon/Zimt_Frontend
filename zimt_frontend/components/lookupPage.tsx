@@ -1,7 +1,7 @@
 const lookupPage = (props: any) =>{
     return(
         <div className='lookup-page'>   
-            {props.selectedRoom.level}.{props.selectedRoom.section}.{props.selectedRoom.roomNr}
+            {props.selectedRoom.floor}.{props.selectedRoom.building_section}.{props.selectedRoom.room}
         </div>
     )
 }
