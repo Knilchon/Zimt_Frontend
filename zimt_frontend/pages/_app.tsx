@@ -27,7 +27,11 @@ export default function App() {
 
   useEffect(() => {
     const temp = async () => await getRooms()
-    temp().then(data => setRoomArray([...data.first,...data.second]))
+    temp().then(data => { 
+      setRoomArray([...data.first,...data.second]) 
+      console.log(data) }
+      )
+    
   }, [selectedLevel])
 
   useEffect(() => {
@@ -58,10 +62,11 @@ export default function App() {
         <Searchbar className='search-bar'
           inputText={inputText}
           setInputText={setInputText}
+          placeholder={'Enter a room..'}
         />
       </header>
       <div className='map-and-sidebar'>
-        <Sidebar className='side-bar'
+        <Sidebar className='sidebar'
           selectedLevel={selectedLevel}
           handelLevelChange={handelLevelChange}
           handleOnClick={handelRoomSelect}
@@ -71,7 +76,7 @@ export default function App() {
         />
         <div className='map-body'>
           Put map here.
-          <LevelSelector selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />
+          {/*<LevelSelector selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />*/}
           {selectedRoom ? (<LookupPage selectedRoom={selectedRoom} className='lookup-page'/>):(<></>) }
           
         </div>

@@ -1,68 +1,38 @@
-element {
-  --header-height: ;
-}
-
 body {
-  margin: 0cm;
+  margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12pt;
   background-color: #121212;
 }
 
 .App-header {
-  font-size: 10pt;
   background: #212121;
   color: rgb(255, 255, 255);
   padding: 0 1% 0 1%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 8vh;
 }
 
-.sidebar{
-    margin: 1rem;
-    padding: 1rem;
-    width: 12vw;
-    height: 100vh;
-    background-color: #2b2b2b;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    color: rgb(214, 214, 214);
+.sidebar {
+  padding: 1rem;
+  width: 12vw;
+  background-color: #2b2b2b;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  color: rgb(214, 214, 214);
+  overflow-y: auto;
 }
-
-.sidebar button {
-  margin-bottom: 0.5rem;
-  height: 2rem;
-  background-color: gainsboro;
-  border: none;
-  border-radius: 999rem;
-  font-weight: 700;
-  color: #212121;
-}
-
-.sidebar button:hover {
-  background-color: #a7a7a7;
-  transition: 0.25s;
-}
-
-.sidebar .room-button {
-  width: 90%;
-  align-self: flex-end;
-}
-
 
 .map-and-sidebar{
     background-color: #323232;
     display: flex;
-    height: calc(100vh - 68px);
+    height: 92vh;
 }
 
-.RoomCard-List{
-  overflow: scroll;
-  height: 85vh;
-}
-
-.map-body{
+.map-body {
     color: #b6b6b6;
     display: flex;
     height: fit-content;
@@ -75,7 +45,7 @@ body {
 .search-bar{
   padding-left: 1em;
   width: 15rem;  
-  height: max;
+  height: 3vh;
   display: flex;
   margin: 0.75em;
   flex-direction: column;
@@ -87,3 +57,38 @@ body {
   min-width: fit-content;
   padding: 0.75em;
 }
+
+@media screen and (max-width:1600px) {
+  body {
+    font-size: 12pt;
+  }
+}
+
+@media screen and (max-width:1440px) {
+  body {
+    font-size: 10pt;
+  }
+}
+
+@media screen and (max-width:1024px) {
+  body {
+    font-size: 8pt;
+  }
+}
+
+@media screen and (max-width:480px) {
+  body {
+    font-size: 6pt;
+  }
+
+  .sidebar {
+    padding: 0 2% 0 2%;
+  }
+}
+
+
+
+
+
+
+

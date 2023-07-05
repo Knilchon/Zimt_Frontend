@@ -50,7 +50,6 @@ const Sidebar = (props: ISidebar) => {
 
     return(
         <div {...props}>
-            <div className="RoomCard-List">
                 {
                 levels.map((level,index) => {
                   return (<>
@@ -84,7 +83,6 @@ const Sidebar = (props: ISidebar) => {
               </>
             })
           } */}
-            </div>
         </div>
     )
 }
