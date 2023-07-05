@@ -4,8 +4,8 @@ import LevelButton from "./LevelButton"
 import Layers from "../assets/layers.svg"
 
 interface ILevelSelectorProps{
-    selectedLevel: number
-    setSelectedLevel: Dispatch<SetStateAction<number>>
+    selectedLevel: number | undefined
+    setSelectedLevel: Dispatch<SetStateAction<number|undefined>>
 }
 
 const StyledDiv = styled.div`
