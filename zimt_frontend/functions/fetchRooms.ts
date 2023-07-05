@@ -1,22 +1,35 @@
-import getDomain from "./getDomain"
-
 export type BasicRoomDetails = {
     id: number
-    roomNr: number
-    level: number
-    section: number
-    prefix: string
+    room: number
+    floor: number
+    building_section: number
+    subroom_description: string
     seats: number
+    item_decription: string
+    item_name: string
+    quantity: number
 }
 
-const getRooms = async (level: number): Promise<BasicRoomDetails[]> => {
-    const url = `${getDomain()}/rooms/${level}`
-    const test = "https://mocki.io/v1/091ee301-bfe2-4dc6-9db7-706ff9c78a65"
+export type WhouleData = {
+    first: BasicRoomDetails[],
+    second: BasicRoomDetails[],
+}
 
-    const response: Response = await fetch(test)
-    const json: Promise<BasicRoomDetails[]>  = await response.json()
+const getRooms = async (): Promise<any> => {
+    const url = `http://10.3.141.1:8000/rooms`
+
+    const request =
+    {
+        method: 'GET',
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        },
+    }
+
+
+    const response: Response = await fetch(url,request)
+    const json: Promise<any>  = await response.json()
     const data = await json
-
-    return data
+    return data[0]
 }
 export default getRooms

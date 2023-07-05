@@ -1,12 +1,22 @@
-import getDomain from "./getDomain"
 import { PostRquest } from "./PostRoomBooking"
 
-const getRoomDetails = async (id: number) => {
-    const url = `${getDomain()}/room/${id}`
-    const test = "https://mocki.io/v1/091ee301-bfe2-4dc6-9db7-706ff9c78a65"
+const getRoomDetails = async (id: number | undefined) => {
 
-    const response: Response = await fetch(test)
+    if(id === undefined)
+    {return;}
+    const url = `http://10.3.141.1:8000/room/${id}`
+
+    const request =
+    {
+        method: 'GET',
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        },
+    }
+
+    const response: Response = await fetch(url,request)
     const data: PostRquest = await response.json()
+    console.log(data)
 
     return data
 }
