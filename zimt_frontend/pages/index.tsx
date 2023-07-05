@@ -1,9 +1,15 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import App from './_app'
+import React from 'react';
+import MapSvg from '../components/MapSvg';
 
-export default function Home() {
-  return (
-    <App/>
-  )
-}
+const handlePathClick = (id: string) => {
+  console.log('Clicked path ID:', id);
+};
+
+const App = () => (
+  <>
+    <h1>SVG page</h1>
+    <MapSvg handlePathClick={handlePathClick} />
+  </>
+);
+
+export default App;
