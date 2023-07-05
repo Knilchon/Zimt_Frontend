@@ -68,3 +68,10 @@ body {
   margin: 0.75em;
   flex-direction: column;
 }
+
+.lookup-page{
+  background-color: gainsboro;
+  min-height: fit-content;
+  min-width: fit-content;
+  padding: 0.75em;
+}
