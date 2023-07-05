@@ -50,11 +50,7 @@ const Sidebar = (props: ISidebar) => {
 
     return(
         <div {...props}>
-            <p>This is a sidebar.</p>
-            <div className="RoomCard-List" style={{
-                overflow: "scroll",
-                height: "80%",
-            }}>
+            <div className="RoomCard-List">
                 {
                 levels.map((level,index) => {
                   return (<>
