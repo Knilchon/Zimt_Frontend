@@ -7,6 +7,7 @@ import '../styles/_app.css'
 import Sidebar from '../components/sidebar'
 import Searchbar from '../components/searchbar'
 import LevelSelector from '../components/LevelSelector'
+import LookupPage from '../components/lookupPage'
 import getRoomDetails from '../functions/fetchRoomDetails'
 
 const InitalPostRequest: PostRquest = {
@@ -70,9 +71,13 @@ export default function App() {
         />
         <div className='map-body'>
           Put map here.
-          <LevelSelector selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />
+          {/*<LevelSelector selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />*/}
+          {selectedRoom ? (<LookupPage selectedRoom={selectedRoom} className='lookup-page'/>):(<></>) }
+          
         </div>
       </div>
     </>
   )
 }
+
+
