@@ -17,14 +17,14 @@ body {
 .sidebar{
     padding: 1rem;
     width: 12vw;
-    height: 100vh;
+    max-height: 100vh;
     background-color: #2b2b2b;
     display: flex;
     flex-direction: column;
     justify-content: left;
     color: rgb(214, 214, 214);
 }
-
+/*
 .sidebar button {
   margin-bottom: 0.5rem;
   height: 2rem;
@@ -43,7 +43,7 @@ body {
 .sidebar .room-button {
   width: 90%;
   align-self: flex-end;
-}
+}*/
 
 .map-and-sidebar{
     background-color: #323232;
