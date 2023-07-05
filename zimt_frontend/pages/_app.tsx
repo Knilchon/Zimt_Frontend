@@ -7,6 +7,7 @@ import '../styles/_app.css'
 import Sidebar from '../components/sidebar'
 import Searchbar from '../components/searchbar'
 import LevelSelector from '../components/LevelSelector'
+import getRoomDetails from '../functions/fetchRoomDetails'
 
 const InitalPostRequest: PostRquest = {
   startTime: "",
@@ -15,39 +16,27 @@ const InitalPostRequest: PostRquest = {
   group: ""
 }
 
-const placeholderdata: BasicRoomDetails = {
-  id: 1,
-  seats: 30,
-  level: 1,
-  section: 2,
-  roomNr: 12,
-  prefix: "",
-}
-const placeholderdata2: BasicRoomDetails = {
-  id: 2,
-  seats: 30,
-  level: 4,
-  section: 3,
-  roomNr: 11,
-  prefix: "a",
-}
-
 export default function App() {
 
   const [roomArray, setRoomArray] = useState<BasicRoomDetails[]>([])
-  const [selectedLevel, setSelectedLevel] = useState<number>(1)
+  const [selectedLevel, setSelectedLevel] = useState<number|undefined>(undefined)
   const [selectedRoom, setSelectedRoom] = useState<BasicRoomDetails | undefined>(undefined)
   const [postRequest, setPostRequest] = useState<PostRquest>(InitalPostRequest)
   const [inputText, setInputText] = useState("")
 
   useEffect(() => {
-    const temp = async () => await getRooms(selectedLevel)
-    temp().then(data => setRoomArray([placeholderdata, placeholderdata2, placeholderdata, placeholderdata2, placeholderdata, placeholderdata2, placeholderdata, placeholderdata2, placeholderdata2, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata, placeholderdata]))
+    const temp = async () => await getRooms()
+    temp().then(data => setRoomArray([...data.first,...data.second]))
   }, [selectedLevel])
 
   useEffect(() => {
-    console.log(selectedRoom)
+    console.log(selectedLevel)
+  }, [selectedLevel, setSelectedLevel])
+
+  useEffect(() => {
+    getRoomDetails(selectedRoom?.id)
   }, [selectedRoom, setSelectedRoom])
+
 
   const handelLevelChange = (level: number) => {
     setSelectedLevel(level)
@@ -72,6 +61,8 @@ export default function App() {
       </header>
       <div className='map-and-sidebar'>
         <Sidebar className='side-bar'
+          selectedLevel={selectedLevel}
+          handelLevelChange={handelLevelChange}
           handleOnClick={handelRoomSelect}
           rooms={roomArray}
           selectedRoom={selectedRoom}

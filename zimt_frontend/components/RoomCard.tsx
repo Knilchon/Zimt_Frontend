@@ -1,4 +1,4 @@
-import { styled, keyframes } from "styled-components"
+import { styled } from "styled-components"
 import { BasicRoomDetails } from "../functions/fetchRooms"
 
 interface IRoomCard {
@@ -6,7 +6,6 @@ interface IRoomCard {
     room: BasicRoomDetails,
     selectedRoom?: BasicRoomDetails,
     handleOnClick: (room: BasicRoomDetails | undefined) => void
-    className: string
 }
 
 interface IStyledRoomCardProps {
