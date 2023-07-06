@@ -17,13 +17,13 @@ const StyledRoomCard = styled.div<IStyledRoomCardProps>`
     background-color: ${(props) => props.isSelected ? "lightblue" : "white"};
     margin-bottom: 3px;
     padding-top: 1px;
-    height: 40px;
-    width: auto;
+    height: 5vh;
+    width: 90%;
     color: black;
-    border-radius: 3px;
+    border-radius: 8px;
     text-align: center;
-    vertical-align: middle;
     transition: background-color .15s ease-in;
+    flex-shrink: 0;
 
     &:hover {
         background-color: ${(props) => props.isSelected ? "lightblue" : "lightgray"};;

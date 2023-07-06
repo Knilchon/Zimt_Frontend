@@ -6,35 +6,24 @@ body {
 }
 
 .App-header {
-  font-size: 10pt;
-  height: 10vh;
   background: #212121;
   color: rgb(255, 255, 255);
   padding: 0 1% 0 1%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 10vh;
 }
 
 .sidebar{
-    margin: 1rem;
-    padding: 1rem;
-    width: 12vw;
-    height: 90vh;
-    background-color: #2b2b2b;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    color: rgb(214, 214, 214);
-}
-
-.sidebar button {
-  margin-bottom: 0.5rem;
-  height: 2rem;
-  background-color: gainsboro;
-  border: none;
-  border-radius: 999rem;
-  font-weight: 700;
-  color: #212121;
+  padding: 1rem;
+  width: 13vw;
+  background-color: #2b2b2b;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  color: rgb(214, 214, 214);
+  overflow-y: scroll;
 }
 
 .sidebar button:hover {
@@ -47,7 +36,6 @@ body {
   align-self: flex-end;
 }
 
-
 .map-and-sidebar{
     background-color: #323232;
     display: flex;
@@ -55,24 +43,25 @@ body {
 }
 
 .RoomCard-List{
+  background-color: #3f3f3f;
   overflow: scroll;
   height: 88vh;
 }
 
 .map-body{
-    color: #b6b6b6;
-    display: flex;
-    max-height: 90vh;
-    width: fit-content;
-    padding: 2%;
-    align-items: center;
-    justify-content: center;
+  color: #b6b6b6;
+  display: flex;
+  max-height: 90vh;
+  width: fit-content;
+  padding: 2%;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-bar{
   padding-left: 1em;
   width: 15rem;  
-  height: max;
+  height: 3vh;
   display: flex;
   margin: 0.75em;
   flex-direction: column;
@@ -89,6 +78,11 @@ body {
   min-height: fit-content;
   min-width: fit-content;
   padding: 0.75em;
+  opacity: 0.7;
+}
+
+.lookup-page:hover{
+  opacity: 0.2;
 }
 
 .lookup-page-part{
@@ -97,4 +91,40 @@ body {
   border-top-style: solid;
   border-width: 1.75px;
   margin-bottom: 0.2em;
+}
+
+@media screen and (max-width:1600px) {
+  body {
+    font-size: 12pt;
+  }
+}
+
+@media screen and (max-width:1440px) {
+  body {
+    font-size: 10pt;
+  }
+}
+
+@media screen and (max-width:1024px) {
+  body {
+    font-size: 8pt;
+  }
+}
+
+@media screen and (max-width:480px) {
+  body {
+    font-size: 6pt;
+  }
+
+  .sidebar {
+    padding: 0 2% 0 2%;
+  }
+}
+
+.logo{
+  background-image: url('../assets/logo.png');
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  filter: invert(100%);
 }

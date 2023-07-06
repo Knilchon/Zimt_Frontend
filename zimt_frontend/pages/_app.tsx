@@ -58,14 +58,16 @@ export default function App() {
   return (
     <>
       <header className='App-header'>
-        <h1>[Insert App name]</h1>
+        <div className='logo'/>
+        <h1>Room Reserver</h1>
         <Searchbar className='search-bar'
           inputText={inputText}
           setInputText={setInputText}
+          placeholder='Enter room number...'
         />
       </header>
       <div className='map-and-sidebar'>
-        <Sidebar className='side-bar'
+        <Sidebar className='sidebar'
           selectedLevel={selectedLevel}
           handelLevelChange={handelLevelChange}
           handleOnClick={handelRoomSelect}
@@ -74,8 +76,7 @@ export default function App() {
           inputSearch={inputText}
         />
         <div className='map-body'>
-          Put map here.
-              return (<MapSvg_3 handlePathClick={() => {}}/>)
+          <MapSvg handlePathClick={() => {}}/>
           {/*<LevelSelector selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />*/}
           {selectedRoom ? (<LookupPage selectedRoom={selectedRoom} className='lookup-page'/>):(<></>) }
           
