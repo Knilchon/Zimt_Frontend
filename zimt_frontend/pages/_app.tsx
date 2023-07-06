@@ -11,6 +11,8 @@ import LookupPage from '../components/lookupPage'
 import getRoomDetails from '../functions/fetchRoomDetails'
 import MapSvg from '../components/MapSvg'
 import MapSvg2 from '../components/MapSvg_2'
+import MapSvg_2 from '../components/MapSvg_2'
+import MapSvg_3 from '../components/MapSvg_3'
 
 const InitalPostRequest: PostRquest = {
   startTime: "",
