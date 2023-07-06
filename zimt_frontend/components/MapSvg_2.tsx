@@ -1028,6 +1028,7 @@ useEffect(() => {
       className="st4"
       width={92}
       height={162}
+      onClick={handleClick}
     />
     <rect
       id="2-4-29-a"
@@ -1036,11 +1037,13 @@ useEffect(() => {
       className="st4"
       width={89}
       height={162}
+      onClick={handleClick}
     />
     <polygon
       id="2-4-30"
       className="st4"
       points="332.3,443.5 247.3,443.5 247.3,609 332.3,609 332.3,470.3 332.3,470.3 "
+      onClick={handleClick}
     />
     <rect
       id="2-4-18"
@@ -1048,7 +1051,7 @@ useEffect(() => {
       y={535}
       className="st4"
       width={44}
-      height={74}
+      height={74}  onClick={handleClick}
     />
     <rect
       id="2-4-17"
@@ -1057,6 +1060,8 @@ useEffect(() => {
       className="st4"
       width={23}
       height={74}
+      onClick={handleClick}
+
     />
     <rect
       id="2-4-8"
@@ -1065,11 +1070,13 @@ useEffect(() => {
       className="st4"
       width={182}
       height={95}
+      onClick={handleClick}
     />
     <polygon
       id="2-4-22-b"
       className="st4"
       points="93.9,339.4 158.8,339.4 158.8,199.5 66.3,199.5 66.3,355 93.9,355 "
+      onClick={handleClick}
     />
     <rect
       id="2-4-34"
@@ -1078,6 +1085,7 @@ useEffect(() => {
       className="st4"
       width={104}
       height={48}
+      onClick={handleClick}
     />
     <g id="_x3C_Group_x3E_stairs_1_">
       <rect x={617.3} y={476} className="st7" width={51} height={28} />
@@ -1116,6 +1124,7 @@ useEffect(() => {
       className="st4"
       width={99}
       height={52}
+      onClick={handleClick}
     />
     <rect
       id="2-4-6"
@@ -1124,6 +1133,7 @@ useEffect(() => {
       className="st4"
       width={99}
       height={52}
+      onClick={handleClick}
     />
     <g>
       <polygon
@@ -1160,6 +1170,7 @@ useEffect(() => {
       className="st4"
       width={45}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-15"
@@ -1168,6 +1179,7 @@ useEffect(() => {
       className="st4"
       width={34}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-14"
@@ -1176,6 +1188,7 @@ useEffect(() => {
       className="st4"
       width={37}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-13"
@@ -1184,6 +1197,7 @@ useEffect(() => {
       className="st4"
       width={31}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-12"
@@ -1203,12 +1217,13 @@ useEffect(() => {
     />
     <rect x={607.3} y={462} className="st4" width={31} height={16} />
     <rect
-      id="2-4-5_1_"
+      id="2-2-5"
       x={799.3}
       y={336}
       className="st4"
       width={90}
       height={92}
+      onClick={handleClick}
     />
     <path className="st4" d="M1735.3,334" />
     <path className="st4" d="M1735.3,349.8" />
@@ -1264,6 +1279,7 @@ useEffect(() => {
       className="st4"
       width={83.4}
       height={95}
+      onClick={handleClick}
     />
     <rect
       id="2-1-14"
@@ -1272,6 +1288,7 @@ useEffect(() => {
       className="st4"
       width={58.6}
       height={84}
+      onClick={handleClick}
     />
     <rect
       id="2-1-3"
@@ -1280,6 +1297,8 @@ useEffect(() => {
       className="st4"
       width={66.9}
       height={84}
+      onClick={handleClick}
+      
     />
     <rect
       id="2-1-2"
@@ -1288,16 +1307,19 @@ useEffect(() => {
       className="st4"
       width={84.4}
       height={95}
+      onClick={handleClick}
     />
     <polygon
       id="2-1-12"
       className="st4"
       points="1125.8,238 1125.8,305.9 1140.5,321 1208.6,321 1208.6,238 "
+      onClick={handleClick}
     />
     <polygon
       id="2-1-1"
       className="st4"
       points="1417.8,237.5 1417.8,305.4 1402.8,320.5 1333.8,320.5 1333.8,237.5 "
+      onClick={handleClick}
     />
     <rect
       id="2-3-4"
@@ -1306,9 +1328,11 @@ useEffect(() => {
       className="st4"
       width={158}
       height={80}
+      onClick={handleClick}
     />
     <polygon
       id="2-3-2"
+      onClick={handleClick}
       className="st4"
       points="1468.3,219 1467.3,291 1474.3,291 1474.3,300 1559.3,299 1559.3,219 "
     />
@@ -1316,6 +1340,7 @@ useEffect(() => {
       id="2-3-6"
       className="st4"
       points="1748.4,285 1811.8,285 1811.8,219 1717.3,219 1717.3,299 1748.4,299 "
+      onClick={handleClick}
     />
     <rect
       id="r12_15_"
@@ -1341,14 +1366,15 @@ useEffect(() => {
       <rect x={1443.3} y={243} className="st4" width={25} height={5} />
       <rect x={1443.3} y={248} className="st4" width={25} height={5} />
     </g>
-    <rect x={1461.3} y={330} className="st4" width={81} height={95} />
+    <rect id= "2-3-2" onClick={handleClick} x={1461.3} y={330} className="st4" width={81} height={95} />
     <rect
-      id="2-3-4_1_"
+      id="2-3-4"
       x={1542.3}
       y={330}
       className="st4"
       width={78}
       height={95}
+      onClick={handleClick}
     />
     <rect
       id="2-3-5"
@@ -1357,6 +1383,7 @@ useEffect(() => {
       className="st4"
       width={125}
       height={95}
+      onClick={handleClick}
     />
     <polygon
       id="2-3-toilette"
@@ -1388,6 +1415,7 @@ useEffect(() => {
       className="st4"
       width={131}
       height={63}
+      onClick={handleClick}
     />
     <rect
       id="2-1-7"
@@ -1396,6 +1424,7 @@ useEffect(() => {
       className="st4"
       width={151}
       height={63}
+      onClick={handleClick}
     />
     <rect
       id="2-4-22-a"
@@ -1404,15 +1433,17 @@ useEffect(() => {
       className="st4"
       width={80}
       height={141}
+      onClick={handleClick}
     />
     <polygon
       id="2-4-22"
       className="st4"
       points="238.3,199.5 238.3,339.3 305.3,339.3 305.3,362.5 327.3,362.5 327.3,339.3 327.3,199.5  "
+      onClick={handleClick}
     />
-    <rect x={94.3} y={340} className="st4" width={99} height={48} />
-    <rect x={225.3} y={340} className="st4" width={80} height={48} />
-    <rect x={193.3} y={340} className="st4" width={45} height={48} />
+    <rect id = "2-4-26"  onClick={handleClick} x={94.3} y={340} className="st4" width={99} height={48} />
+    <rect x={225.3} onClick={handleClick} id="2-4-23" y={340} className="st4" width={80} height={48} />
+    <rect x={193.3} onClick={handleClick} id="2-4-25" y={340} className="st4" width={45} height={48} />
     <g>
       <rect x={366.7} y={334.2} className="st4" width={15} height={5.2} />
       <g>
@@ -1430,6 +1461,7 @@ useEffect(() => {
       className="st4"
       width={41}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-5"
@@ -1438,6 +1470,7 @@ useEffect(() => {
       className="st4"
       width={41}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-3"
@@ -1446,11 +1479,13 @@ useEffect(() => {
       className="st4"
       width={118}
       height={118}
+      onClick={handleClick}
     />
     <polygon
       id="2-4-1"
       className="st4"
       points="528.3,199 528.3,317 631.3,317 631.3,344 666.3,344 666.3,317 666.3,315 666.3,199 "
+      onClick={handleClick}
     />
     <polygon
       className="st4"
@@ -1463,6 +1498,7 @@ useEffect(() => {
       className="st4"
       width={110}
       height={92}
+      onClick={handleClick}
     />
     <rect
       id="2-2-1"
@@ -1471,35 +1507,40 @@ useEffect(() => {
       className="st4"
       width={79}
       height={92}
+      onClick={handleClick}
     />
     <polygon
       id="2-2-6"
       className="st4"
       points="735.7,227 729.3,233.4 729.3,302 800.3,302 800.3,313 834.3,313 834.3,302 834.3,227 "
+      onClick={handleClick}
     />
     <rect
-      id="2-4-4"
+      id="2-2-4"
       x={834.3}
       y={227}
       className="st4"
       width={153}
       height={86}
+      onClick={handleClick}
     />
     <rect
-      id="2-4-2"
+      id="2-2-2"
       x={987.3}
       y={227}
       className="st4"
       width={86}
       height={86}
+      onClick={handleClick}
     />
     <rect
-      id="2-1-14_1_"
+      id="2-1-4"
       x={1233.3}
       y={228}
       className="st4"
       width={77}
       height={80}
+      onClick={handleClick}
     />
     <text transform="matrix(1 0 0 1 64.3232 190.918)" className="st9 st12">
       {"2.4"}
@@ -1544,6 +1585,7 @@ useEffect(() => {
       className="st4"
       width={80}
       height={48}
+      onClick={handleClick}
     />
     <rect
       id="2-4-33"
@@ -1552,6 +1594,7 @@ useEffect(() => {
       className="st4"
       width={45}
       height={48}
+      onClick={handleClick}
     />
     <text transform="matrix(1 0 0 1 212.3232 453.374)" className="st9 st11">
       {"33"}
