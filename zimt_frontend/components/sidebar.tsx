@@ -16,16 +16,17 @@ interface ISidebar {
 const StyledButton = styled.button`
     flex-flow: column;
     background-color: "white";
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     padding-top: 1px;
-    height: 40px;
+    height: 6vh;
     width: 100%;
     color: black;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     text-align: center;
     vertical-align: middle;
     transition: background-color .15s ease-in;
+    flex-shrink: 0;
 
     &:hover {
       background-color: "lightgray";
@@ -50,7 +51,6 @@ const Sidebar = (props: ISidebar) => {
 
     return(
         <div {...props}>
-            <div className="RoomCard-List">
                 {
                 levels.map((level,index) => {
                   return (<>
@@ -84,7 +84,6 @@ const Sidebar = (props: ISidebar) => {
               </>
             })
           } */}
-            </div>
         </div>
     )
 }
