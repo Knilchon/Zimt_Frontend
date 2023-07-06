@@ -1,452 +1,1724 @@
-import React, {useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import { BasicRoomDetails } from "../functions/fetchRooms";
+import getRoomId from "../functions/fetchId";
 
 type SvgComponentProps = {
-  handlePathClick: (id: string) => void;
+  setSelectedRoom: Dispatch<SetStateAction<BasicRoomDetails | undefined>>
+  roomArray: BasicRoomDetails[]
+  selectedRoom: BasicRoomDetails | undefined
 };
 
-const MapSvg: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
-  const handleClick = (event: React.MouseEvent<SVGPathElement>) => {
-    const pathId = event.currentTarget.id;
-    handlePathClick(pathId);
-  };
+const MapSvg_2: React.FC<SvgComponentProps> = ({ setSelectedRoom, roomArray, selectedRoom }) => {
+  const handleSelectChange = () => {
+    var list = document.getElementsByClassName("selected");
+    // @ts-ignore
+    for (let item of list) {
+        item.style.fill = ""
+        item.classList.remove("selected")
+    }
+}
+
+const handleClick = (event: React.MouseEvent<SVGPathElement>) => {
+
+    handleSelectChange();
+
+    event.currentTarget.style.fill = "tomato"
+    event.currentTarget.classList.add("selected")
+    getRoomId(event.currentTarget.id).then(data => {
+        data?.id && setSelectedRoom(roomArray.find(room => room.id === data.id));
+    })
+};
+
+const convertroom2Name = (room : BasicRoomDetails) => {
+ return `${room.floor}-${room.building_section}-${room.room}${room.subroom_description && "-" + room.subroom_description}`
+}
+
+useEffect(() => { 
+    handleSelectChange();
+    if(selectedRoom){
+
+    const element =document.getElementById(convertroom2Name(selectedRoom)) 
+
+    console.log(convertroom2Name(selectedRoom))
+    // @ts-ignore
+    element?.classList.add("selected")
+    element && element.setAttribute("style","fill:tomato;")
+    }
+},[selectedRoom, setSelectedRoom])
 
   return (
-    <svg width={1260}
-    id="Layer_1"
+    <svg
+    id="ebene_2"
+    width={1260}
     x="0px"
     y="0px"
     viewBox="0 0 1920 733"
-    xmlSpace="preserve" >
-    <style>
+    xmlSpace="preserve"
+   
+  >
+    <style type="text/css">
       {
-        ".st1,.st2{stroke:#000;stroke-miterlimit:10}.st1{display:inline;fill:#bcbcbc}.st2{fill:#fff}.st2,.st3{display:inline}.st4,.st5{fill:#fff;stroke:#000;stroke-miterlimit:10}.st5{fill:none}.st9{font-family:&apos;ArialMT&apos;}.st10{font-size:61.6679px}.st11{<font-size:14></font-size:14>px}.st12{font-size:34.1556px}.st13{display:inline;fill:red}.st14{font-size:22.1902px}.st17{font-family:&apos;Arial&apos;}"
+        "\n\t.st0{display:none;}\n\t.st1{display:inline;fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n\t.selected{fill:tomato}.st4:hover,.st2:hover{fill:tomato}\n\t.st2{display:inline;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st3{display:inline;}\n\t.st4{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st5{fill:none;stroke:#000000;stroke-miterlimit:10;}\n\t.st6{display:inline;opacity:1;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st7{opacity:0.7;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st8{display:inline;opacity:0.3;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st9{font-family:'Arial';}\n\t.st10{font-size:61.6679px;}\n\t.st11{font-size:14px;}\n\t.st12{font-size:34.1556px;}\n\t.st13{display:inline;fill:#FF0000;}\n\t.st14{font-size:22.1902px;}\n\t.st15{fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n"
       }
     </style>
-    <g id="Layer_2">
-      <path
-        id="floor"
-        fill="#bcbcbc"
-        stroke="#000"
-        strokeMiterlimit={10}
-        d="M1412.3 219L1412.3 196 1130.3 196 1130.3 289 799.3 289 786.3 289 666.3 289 666.3 199 66.3 199 66.3 609 666.3 609 666.3 418 799.3 418 799.3 404 1130.3 404 1130.3 425 1412.3 425 1412.3 403 1811.3 403 1811.3 219z"
+    <g className="st0">
+      <image
+        style={{
+          display: "inline",
+          overflow: "visible",
+          opacity: 0.49,
+          
+        }}
+        width={2560}
+        height={1920}
+        id="background"
+        xlinkHref="ebene_1.jpg"
+        transform="matrix(0.7458 0 0 0.7458 9 -423)"
       />
-      <path className="st4" d="M631.3 343H666.3V371H631.3z" />
-      <path
-        transform="rotate(90 366.25 335.707)"
-        className="st4"
-        d="M328 319.7H404.5V351.7H328z"
+      <rect
+        id="back_x5F_print"
+        x={67.5}
+        y={201.5}
+        className="st1"
+        width={613}
+        height={404}
       />
-      <path className="st4" d="M66.3 447H158.3V609H66.3z" />
-      <path className="st4" d="M158.3 447H247.3V609H158.3z" />
-      <path
-        className="st4"
-        d="M332.3 443.5L247.3 443.5 247.3 609 332.3 609 332.3 470.3 332.3 470.3z"
+      <polygon
+        id="ground-1"
+        className="st1"
+        points="1820,291.5 1820,42.5 1469,42.5 1469,281.5 1091.5,281.5 1091.5,69.5 753.5,69.5  753.5,302.5 758.5,302.5 758.5,331.5 753.5,331.5 753.5,407.5 1091.5,407.5 1820.5,407.5 1820.5,322.5 1808.5,322.5 1808.5,291.5  "
       />
-      <path className="st4" d="M332.3 535H376.3V609H332.3z" />
-      <path className="st4" d="M376.3 535H399.3V609H376.3z" />
-      <path className="st4" d="M409.3 419H591.3V514H409.3z" />
-      <path
-        className="st4"
-        id = "2-4-22-b"
-        d="M93.9 339.4L158.8 339.4 158.8 199.5 66.3 199.5 66.3 355 93.9 355z"
+      <rect
+        id="_x31_-2-12"
+        x={753.5}
+        y={68.5}
+        className="st2"
+        width={95}
+        height={73}
       />
-      <path className="st4" d="M92.3 425H196.3V473H92.3z" />
-      <g id="_x3C_Group_x3E_stairs_1_">
-        <path
-          opacity={0.7}
-          fill="#fff"
-          stroke="#000"
-          strokeMiterlimit={10}
-          d="M617.3 476H668.3V504H617.3z"
-        />
-        <path className="st4" d="M632 476.5H637V490H632z" />
-        <path className="st4" d="M638 490H643V503.5H638z" />
-        <path className="st4" d="M652 476.5H657V490H652z" />
-        <path className="st4" d="M647 476.5H652V490H647z" />
-        <path className="st4" d="M642 476.5H647V490H642z" />
-        <path className="st4" d="M637 476.5H642V490H637z" />
-        <path className="st4" d="M627 476.5H632V490H627z" />
-        <path className="st4" d="M653 490H658V503.5H653z" />
-        <path className="st4" d="M648 490H653V503.5H648z" />
-        <path className="st4" d="M643 490H648V503.5H643z" />
-        <path className="st4" d="M633 490H638V503.5H633z" />
-        <path className="st4" d="M628 490H633V503.5H628z" />
+      <rect
+        id="_x31_-2-13"
+        x={848.5}
+        y={68.5}
+        className="st2"
+        width={78}
+        height={73}
+      />
+      <rect
+        id="_x31_-2-15"
+        x={925.5}
+        y={68.5}
+        className="st2"
+        width={77}
+        height={73}
+      />
+      <rect
+        id="_x31_-2-11"
+        x={753.5}
+        y={141.5}
+        className="st2"
+        width={73}
+        height={86}
+      />
+      <rect
+        id="_x31_-2-10"
+        x={743.5}
+        y={227.5}
+        className="st2"
+        width={83}
+        height={75}
+      />
+      <rect
+        id="_x31_-2-14"
+        x={848.5}
+        y={174.5}
+        className="st2"
+        width={133}
+        height={44}
+      />
+      <rect
+        id="_x31_-2-03"
+        x={848.5}
+        y={218.5}
+        className="st2"
+        width={133}
+        height={80}
+      />
+      <polygon
+        id="_x31_-2-17"
+        className="st2"
+        points="1002.5,161.5 1002.5,298 1068.5,298 1068.5,286.9 1091.5,286.9 1091.5,161.5  "
+      />
+      <rect
+        id="_x31_-1-stairs"
+        x={1091.5}
+        y={194.5}
+        className="st2"
+        width={50}
+        height={99}
+      />
+      <rect x={1091.5} y={222.5} className="st2" width={25} height={5} />
+      <rect x={1091.5} y={227.5} className="st2" width={25} height={5} />
+      <rect x={1091.5} y={232.5} className="st2" width={25} height={5} />
+      <rect x={1091.5} y={237.5} className="st2" width={25} height={5} />
+      <rect x={1091.5} y={242.5} className="st2" width={25} height={5} />
+      <rect x={1091.5} y={247.5} className="st2" width={25} height={5} />
+      <rect x={1116.5} y={221.5} className="st2" width={25} height={5} />
+      <rect x={1116.5} y={226.5} className="st2" width={25} height={5} />
+      <rect x={1116.5} y={231.5} className="st2" width={25} height={5} />
+      <rect x={1116.5} y={236.5} className="st2" width={25} height={5} />
+      <rect x={1116.5} y={241.5} className="st2" width={25} height={5} />
+      <rect x={1116.5} y={246.5} className="st2" width={25} height={5} />
+      <rect x={1141.5} y={237.5} className="st2" width={34} height={45} />
+      <polygon
+        id="_x31_-1-cafetaria"
+        className="st2"
+        points="1335.5,260 1335.5,191.5 1278.5,191.5 1278.5,179.9 1267.1,168.5 1189,168.5  1175.5,182 1175.5,282.5 1190.5,282.5 1190.5,293.1 1201.9,304.5 1311.5,304.5 1311.5,271.5 1324,271.5  "
+      />
+      <polygon
+        id="_x31_-1-16"
+        className="st2"
+        points="1378.5,191.5 1335.5,191.5 1335.5,248.5 1392.5,248.5 1392.5,205.5  "
+      />
+      <polygon
+        id="_x31_-1-15"
+        className="st2"
+        points="1335.5,248.5 1335.5,260.5 1323.5,271.5 1311.5,271.5 1311.5,304.5 1322.5,314.5  1380.3,314.5 1392.5,302.3 1392.5,247.5  "
+      />
+      <rect x={1392.5} y={233.5} className="st2" width={33} height={48} />
+      <rect
+        id="_x31_-3-02"
+        x={1469.5}
+        y={168.5}
+        className="st2"
+        width={105}
+        height={111}
+      />
+      <rect
+        id="_x31_-3-15"
+        x={1469.5}
+        y={42.5}
+        className="st2"
+        width={82.2}
+        height={102}
+      />
+      <rect
+        id="_x31_-3-14"
+        x={1551.7}
+        y={42.5}
+        className="st2"
+        width={89.4}
+        height={102}
+      />
+      <rect
+        id="_x31_-3-13"
+        x={1641.2}
+        y={42.5}
+        className="st2"
+        width={89.4}
+        height={102}
+      />
+      <rect
+        id="_x31_-3-12"
+        x={1730.6}
+        y={42.5}
+        className="st2"
+        width={89.4}
+        height={102}
+      />
+      <rect
+        id="_x31_-3-04"
+        x={1574.5}
+        y={178.5}
+        className="st2"
+        width={55}
+        height={90}
+      />
+      <rect
+        id="_x31_-3-06"
+        x={1681.5}
+        y={176.5}
+        className="st2"
+        width={55}
+        height={89}
+      />
+      <path className="st2" d="M1737.5,179.5" />
+      <path className="st2" d="M1737.5,195.4" />
+      <path
+        id="_x31_-3-08"
+        className="st2"
+        d="M1746.5,144.5c0,10.4,0,20.9,0,31.3c0,0.2,0,0.5,0,0.7h-10v96h10h73v-128 C1795.2,144.5,1770.8,144.5,1746.5,144.5z"
+      />
+      <rect x={1709.5} y={265.5} className="st2" width={27} height={7} />
+      <rect x={1574.5} y={268.5} className="st2" width={27} height={7} />
+      <rect
+        id="_x31_-3-01"
+        x={1509.5}
+        y={319.5}
+        className="st2"
+        width={58}
+        height={87}
+      />
+      <rect
+        id="_x31_-3-03"
+        x={1567.5}
+        y={319.5}
+        className="st2"
+        width={58}
+        height={87}
+      />
+      <rect
+        id="_x31_-3-05"
+        x={1622.5}
+        y={319.5}
+        className="st2"
+        width={77}
+        height={87}
+      />
+      <rect
+        id="_x31_-3-07"
+        x={1699.5}
+        y={319.5}
+        className="st2"
+        width={55}
+        height={87}
+      />
+      <polygon
+        className="st2"
+        points="1509.5,406.5 1480.5,406.5 1479.5,373.5 1488.5,372.5 1487.5,340.5 1477.5,327.5 1487.5,319.5  1509.5,319.5  "
+      />
+      <polygon
+        id="_x31_-3-toilette"
+        className="st2"
+        points="1754.5,349.5 1754.5,406.5 1768.5,406.5 1768.5,424.5 1803,424.5 1803,349.5  "
+      />
+      <polygon
+        className="st2"
+        points="1843.5,405 1843.5,322 1803,322 1803,409.5 1839.3,409.5  "
+      />
+      <polygon
+        id="_x31_-1-mensa"
+        className="st2"
+        points="1417.4,587.5 1435.8,587.5 1446,577.5 1446,483.2 1435.2,470.5 1417.4,470.5  1417.4,406.5 1179.5,406.5 1179.5,525.5 1203,525.5 1203,543.5 1229.5,543.5 1229.5,587.5  "
+      />
+      <polygon
+        className="st2"
+        points="1228.5,587.5 1228.5,543.5 1202.5,543.5 1202.5,525.5 1179.5,525.5 1179.5,406.5 1147.5,406.5  1147.5,446.5 1138,446.5 1126.5,458 1126.5,625.5 1232.5,625.5 1232.5,587.5  "
+      />
+      <rect
+        id="_x31_-2-05"
+        x={814.5}
+        y={329.5}
+        className="st2"
+        width={81}
+        height={77}
+      />
+      <rect
+        id="_x31_-2-02"
+        x={895.5}
+        y={329.5}
+        className="st2"
+        width={151}
+        height={77}
+      />
+      <polygon
+        id="_x31_-2-01"
+        className="st2"
+        points="1080.1,373.5 1080.1,329.5 1046,329.5 1046,406.5 1057.4,406.5 1080.1,406.5  1093.5,406.5 1093.5,373.5  "
+      />
+      <polygon
+        id="_x31_-1-toilette_1_"
+        className="st2"
+        points="1162.3,371.5 1147,387.7 1147,406.5 1203.5,406.5 1203.5,371.5  "
+      />
+      <polygon
+        className="st2"
+        points="1306.5,362.5 1306.5,367.5 1268.5,367.5 1268.5,362.5 1237.5,362.5 1237.5,406.5 1335.5,406.5  1335.5,362.5  "
+      />
+      <polygon
+        id="_x31_-1-toilette"
+        className="st2"
+        points="1402.2,372.5 1417.5,388.7 1417.5,407.5 1361,407.5 1361,372.5  "
+      />
+      <rect
+        id="r12_8_"
+        x={1425.5}
+        y={192.5}
+        className="st2"
+        width={43.5}
+        height={99}
+      />
+      <rect x={1425.5} y={220.5} className="st2" width={21.8} height={5} />
+      <rect x={1425.5} y={225.5} className="st2" width={21.8} height={5} />
+      <rect x={1425.5} y={230.5} className="st2" width={21.8} height={5} />
+      <rect x={1425.5} y={235.5} className="st2" width={21.8} height={5} />
+      <rect x={1425.5} y={240.5} className="st2" width={21.8} height={5} />
+      <rect x={1425.5} y={245.5} className="st2" width={21.8} height={5} />
+      <rect x={1447.3} y={219.5} className="st2" width={21.8} height={5} />
+      <rect x={1447.3} y={224.5} className="st2" width={21.8} height={5} />
+      <rect x={1447.3} y={229.5} className="st2" width={21.8} height={5} />
+      <rect x={1447.3} y={234.5} className="st2" width={21.8} height={5} />
+      <rect x={1447.3} y={239.5} className="st2" width={21.8} height={5} />
+      <rect x={1447.3} y={244.5} className="st2" width={21.8} height={5} />
+      <rect x={804.5} y={263.5} className="st2" width={22} height={39} />
+      <polygon
+        className="st2"
+        points="806.8,427.8 806.8,408.5 814.5,408.5 814,351.5 769,351.5 769,428.3 770.6,430 804.3,430.5  "
+      />
+      <polygon
+        className="st2"
+        points="727,412.5 727,331 769,331 769,417 731.3,417  "
+      />
+      <g className="st3">
+        <rect x={1823} y={346.5} className="st4" width={20} height={5} />
+        <rect x={1823} y={351.5} className="st4" width={20} height={5} />
+        <rect x={1823} y={356.5} className="st4" width={20} height={5} />
+        <rect x={1823} y={361.5} className="st4" width={20} height={5} />
+        <rect x={1823} y={366.5} className="st4" width={20} height={5} />
+        <rect x={1823} y={371.5} className="st4" width={20} height={5} />
+        <rect x={1803} y={345.5} className="st4" width={20} height={5} />
+        <rect x={1803} y={350.5} className="st4" width={20} height={5} />
+        <rect x={1803} y={355.5} className="st4" width={20} height={5} />
+        <rect x={1803} y={360.5} className="st4" width={20} height={5} />
+        <rect x={1803} y={365.5} className="st4" width={20} height={5} />
+        <rect x={1803} y={370.5} className="st4" width={20} height={5} />
       </g>
-      <path
-        className="st4"
-        d="M385.8 511L355.4 511 332.3 511 332.3 492 332.3 431 385.8 431z"
+      <g className="st3">
+        <rect x={727} y={377.5} className="st4" width={20.8} height={5} />
+        <rect x={747.8} y={371.5} className="st4" width={20.8} height={5} />
+        <g>
+          <rect x={727} y={357.5} className="st4" width={20.8} height={5} />
+          <rect x={727} y={362.5} className="st4" width={20.8} height={5} />
+          <rect x={727} y={367.5} className="st4" width={20.8} height={5} />
+          <rect x={727} y={372.5} className="st4" width={20.8} height={5} />
+          <rect x={727} y={382.5} className="st4" width={20.8} height={5} />
+          <rect x={747.8} y={356.5} className="st4" width={20.8} height={5} />
+          <rect x={747.8} y={361.5} className="st4" width={20.8} height={5} />
+          <rect x={747.8} y={366.5} className="st4" width={20.8} height={5} />
+          <rect x={747.8} y={376.5} className="st4" width={20.8} height={5} />
+          <rect x={747.8} y={381.5} className="st4" width={20.8} height={5} />
+        </g>
+      </g>
+      <rect
+        id="_x31_-2-16"
+        x={1002.5}
+        y={68.5}
+        className="st2"
+        width={89}
+        height={73}
       />
-      <path className="st4" d="M350.3 340.2H367.8V345.4H350.3z" />
-      <path className="st4" d="M350.3 330.2H366.8V335.2H350.3z" />
-      <path className="st4" d="M350.3 345.2H366.8V350.2H350.3z" />
-      <path className="st4" d="M350.3 335.2H366.8V340.2H350.3z" />
-      <path className="st4" d="M350.3 325.2H366.8V330.2H350.3z" />
-      <path className="st4" d="M350.3 320.2H366.8V325.2H350.3z" />
-      <path className="st4" d="M409.3 338H508.3V390H409.3z" />
-      <path className="st4" d="M508.3 338H607.3V390H508.3z" />
-      <path
-        className="st4"
-        d="M659.8 367.5L638.3 367.5 638.3 346 659.8 346 659.8 348.3z"
+      <g className="st3">
+        <polygon
+          className="st4"
+          points="1299,398 1276.5,398 1276.5,375.5 1299,375.5 1299,377.9  "
+        />
+        <line className="st5" x1={1276.5} y1={398} x2={1299} y2={375.5} />
+        <line className="st5" x1={1299} y1={398} x2={1276.5} y2={375.5} />
+      </g>
+      <rect
+        id="_x31_-4-29"
+        x={67.5}
+        y={488.5}
+        className="st2"
+        width={92}
+        height={117}
       />
-      <path className="st4" d="M638.3 367.5L659.8 346" />
-      <path className="st4" d="M659.8 367.5L638.3 346" />
-      <path
-        className="st4"
-        d="M21.8 300.5L21.8 389.7 23.5 391.5 65.8 391.5 65.8 300.5z"
+      <rect
+        id="_x31_-4-28"
+        x={159.5}
+        y={488.5}
+        className="st2"
+        width={89}
+        height={117}
       />
-      <path className="st4" d="M44.8 337.5H65.8V342.5H44.8z" />
-      <path className="st4" d="M44.8 357.5H65.8V362.5H44.8z" />
-      <path className="st4" d="M44.8 352.5H65.8V357.5H44.8z" />
-      <path className="st4" d="M44.8 347.5H65.8V352.5H44.8z" />
-      <path className="st4" d="M44.8 342.5H65.8V347.5H44.8z" />
-      <path className="st4" d="M44.8 332.5H65.8V337.5H44.8z" />
-      <path className="st4" d="M22.1 347.5H44.8V352.5H22.1z" />
-      <path className="st4" d="M22.1 362.5H44.8V367.5H22.1z" />
-      <path className="st4" d="M22.1 357.5H44.8V362.5H22.1z" />
-      <path className="st4" d="M22.1 352.5H44.8V357.5H22.1z" />
-      <path className="st4" d="M22.1 342.5H44.8V347.5H22.1z" />
-      <path className="st4" d="M22.1 337.5H44.8V342.5H22.1z" />
-      <path className="st4" d="M399.3 535H444.3V609H399.3z" />
-      <path className="st4" d="M444.3 535H478.3V609H444.3z" />
-      <path className="st4" d="M478.3 535H515.3V609H478.3z" />
-      <path className="st4" d="M515.3 535H546.3V609H515.3z" />
-      <path className="st4" d="M546.3 535H587.3V609H546.3z" />
-      <path className="st4" d="M607.3 418H671.3V476H607.3z" />
-      <path className="st4" d="M607.3 462H638.3V478H607.3z" />
-      <path id="r12_13_" className="st4" d="M799.3 336H889.3V428H799.3z" />
-      <path
-        className="st4"
-        d="M791 437.3L791 418 799.3 418 799.3 361 754.3 361 754.3 440 788.5 439.9z"
+      <polygon
+        id="_x31_-4-27"
+        className="st2"
+        points="337.5,488.5 248.5,488.5 248.5,605.5 337.5,605.5 337.5,507.5 359.5,507.5  359.5,488.5  "
       />
-      <path
-        className="st4"
-        d="M711.8 421.3L711.8 336 754.3 336 754.3 426 716.1 426z"
+      <rect
+        id="_x31_-4-17"
+        x={337.5}
+        y={507.5}
+        className="st2"
+        width={40}
+        height={98}
       />
-      <path className="st4" d="M711.8 384H733.0999999999999V389H711.8z" />
-      <path className="st4" d="M733 378H754.3V383H733z" />
-      <path className="st4" d="M711.8 364H733.0999999999999V369H711.8z" />
-      <path className="st4" d="M711.8 369H733.0999999999999V374H711.8z" />
-      <path className="st4" d="M711.8 374H733.0999999999999V379H711.8z" />
-      <path className="st4" d="M711.8 379H733.0999999999999V384H711.8z" />
-      <path className="st4" d="M711.8 389H733.0999999999999V394H711.8z" />
-      <path className="st4" d="M733 363H754.3V368H733z" />
-      <path className="st4" d="M733 368H754.3V373H733z" />
-      <path className="st4" d="M733 373H754.3V378H733z" />
-      <path className="st4" d="M733 383H754.3V388H733z" />
-      <path className="st4" d="M733 388H754.3V393H733z" />
-      <path
-        className="st4"
-        d="M1078.6 195.5L1073.7 200.3 1073.3 300 1125.8 299.5 1125.8 195.5z"
+      <polygon
+        id="_x31_-4-15"
+        className="st2"
+        points="415.5,462.5 415.5,521.5 427.5,521.5 427.5,605.5 516.5,605.5 516.5,462.5  "
       />
-      <path className="st4" d="M1074.3 244H1100.3V249H1074.3z" />
-      <path className="st4" d="M1100.3 238H1126.3V243H1100.3z" />
-      <path className="st4" d="M1074.3 224H1100.3V229H1074.3z" />
-      <path className="st4" d="M1074.3 229H1100.3V234H1074.3z" />
-      <path className="st4" d="M1074.3 234H1100.3V239H1074.3z" />
-      <path className="st4" d="M1074.3 239H1100.3V244H1074.3z" />
-      <path className="st4" d="M1074.3 249H1100.3V254H1074.3z" />
-      <path className="st4" d="M1100.3 223H1126.3V228H1100.3z" />
-      <path className="st4" d="M1100.3 228H1126.3V233H1100.3z" />
-      <path className="st4" d="M1100.3 233H1126.3V238H1100.3z" />
-      <path className="st4" d="M1100.3 243H1126.3V248H1100.3z" />
-      <path className="st4" d="M1100.3 248H1126.3V253H1100.3z" />
-      <path className="st4" d="M1125.3 143H1208.7V238H1125.3z" />
-      <path className="st4" d="M1208.6 143H1267.1999999999998V227H1208.6z" />
-      <path className="st4" d="M1266.9 143H1333.8000000000002V227H1266.9z" />
-      <path className="st4" d="M1333.8 143H1418.2V238H1333.8z" />
-      <path
-        className="st4"
-        d="M1125.8 238L1125.8 305.9 1140.5 321 1208.6 321 1208.6 238z"
+      <rect
+        id="_x31_-4-16"
+        x={377.5}
+        y={521.5}
+        className="st2"
+        width={50}
+        height={84}
       />
-      <path
-        className="st4"
-        d="M1417.8 237.5L1417.8 305.4 1402.8 320.5 1333.8 320.5 1333.8 237.5z"
+      <rect
+        id="_x31_-4-12"
+        x={415.5}
+        y={413.5}
+        className="st2"
+        width={84}
+        height={48}
       />
-      <path className="st4" d="M1559.3 219H1717.3V299H1559.3z" />
-      <path
-        className="st4"
-        d="M1468.3 219L1467.3 291 1474.3 291 1474.3 300 1559.3 299 1559.3 219z"
+      <rect x={499.5} y={413.5} className="st2" width={17} height={48} />
+      <polygon
+        id="_x31_-4-11"
+        className="st2"
+        points="516.5,413 516.5,489.8 585.5,489.8 585.5,605.5 680.5,605.5 680.5,413  "
       />
-      <path
-        className="st4"
-        d="M1748.4 285L1811.8 285 1811.8 219 1717.3 219 1717.3 299 1748.4 299z"
+      <rect
+        id="_x31_-4-01"
+        x={642.5}
+        y={556.5}
+        className="st6"
+        width={38}
+        height={49}
       />
-      <path id="r12_15_" className="st4" d="M1417.8 191H1467.8V291H1417.8z" />
-      <path className="st4" d="M1417.8 219H1442.8V224H1417.8z" />
-      <path className="st4" d="M1417.8 224H1442.8V229H1417.8z" />
-      <path className="st4" d="M1417.8 229H1442.8V234H1417.8z" />
-      <path className="st4" d="M1417.8 234H1442.8V239H1417.8z" />
-      <path className="st4" d="M1417.8 239H1442.8V244H1417.8z" />
-      <path className="st4" d="M1417.8 244H1442.8V249H1417.8z" />
-      <path className="st4" d="M1443.3 223H1468.3V228H1443.3z" />
-      <path className="st4" d="M1443.3 228H1468.3V233H1443.3z" />
-      <path className="st4" d="M1443.3 233H1468.3V238H1443.3z" />
-      <path className="st4" d="M1443.3 238H1468.3V243H1443.3z" />
-      <path className="st4" d="M1443.3 243H1468.3V248H1443.3z" />
-      <path className="st4" d="M1443.3 248H1468.3V253H1443.3z" />
-      <path className="st4" d="M1461.3 330H1542.3V425H1461.3z" />
-      <path className="st4" d="M1542.3 330H1620.3V425H1542.3z" />
-      <path className="st4" d="M1620.3 330H1745.3V425H1620.3z" />
-      <path
-        className="st4"
-        d="M1745.3 352L1745.3 406 1752.3 406 1752.3 430 1755.3 433 1790.3 433 1790.3 352z"
+      <polygon
+        id="_x31_-4-19"
+        className="st2"
+        points="92.5,336.5 140.5,336.5 140.5,201.5 67.5,201.5 67.5,351.5 92.5,351.5  "
       />
-      <path
-        className="st4"
-        d="M1831.3 410.8L1831.3 326 1790.8 326 1790.8 415.5 1827.1 415.5z"
+      <polygon
+        id="_x31_-4-19-a"
+        className="st2"
+        points="140.5,201.5 140.5,336.5 310.5,336.5 310.5,351.5 364,351.5 364,201.5  "
       />
-      <path className="st4" d="M1810.8 348H1830.8V353H1810.8z" />
-      <path className="st4" d="M1810.8 353H1830.8V358H1810.8z" />
-      <path className="st4" d="M1810.8 358H1830.8V363H1810.8z" />
-      <path className="st4" d="M1810.8 363H1830.8V368H1810.8z" />
-      <path className="st4" d="M1810.8 368H1830.8V373H1810.8z" />
-      <path className="st4" d="M1810.8 373H1830.8V378H1810.8z" />
-      <path className="st4" d="M1790.8 347H1810.8V352H1790.8z" />
-      <path className="st4" d="M1790.8 352H1810.8V357H1790.8z" />
-      <path className="st4" d="M1790.8 357H1810.8V362H1790.8z" />
-      <path className="st4" d="M1790.8 362H1810.8V367H1790.8z" />
-      <path className="st4" d="M1790.8 367H1810.8V372H1790.8z" />
-      <path className="st4" d="M1790.8 372H1810.8V377H1790.8z" />
-      <path className="st4" d="M1130.3 420H1261.3V483H1130.3z" />
-      <path className="st4" d="M1261.3 420H1412.3V483H1261.3z" />
-      <path className="st4" id="2-4-22-a" d="M158.3 199H238.3V340H158.3z" />
-      <path
-        className="st4"
-        id ="2-4-22"
-        d="M238.3 199.5L238.3 339.3 305.3 339.3 305.3 362.5 327.3 362.5 327.3 339.3 327.3 199.5z"
+      <rect
+        id="_x31_-4-23-25"
+        x={92.5}
+        y={336.5}
+        className="st2"
+        width={103}
+        height={52}
       />
-      <path className="st4" id ="2-4-26" d="M94.3 340H193.3V388H94.3z" />
-      <path className="st4" d="M225.3 340H305.3V388H225.3z" />
-      <path className="st4" d="M193.3 340H238.3V388H193.3z" />
-      <path className="st4" d="M366.7 334.2H381.7V339.4H366.7z" />
-      <path className="st4" d="M366.7 324.2H381.7V329.2H366.7z" />
-      <path className="st4" d="M366.7 339.2H381.7V344.2H366.7z" />
-      <path className="st4" d="M366.7 329.2H381.7V334.2H366.7z" />
-      <path className="st4" d="M366.7 319.2H381.7V324.2H366.7z" />
-      <path className="st4" d="M366.7 314.2H381.7V319.2H366.7z" />
-      <path className="st4" id ="2-4-21" d="M327.3 199H368.3V273H327.3z" />
-      <path className="st4" id ="2-4-05" d="M368.3 199H409.3V273H368.3z" />
-      <path className="st4" id ="2-4-03" d="M409.3 199H527.3V317H409.3z" />
-      <path
-        className="st4" id ="2-4-1"
-        d="M528.3 199L528.3 317 631.3 317 631.3 344 666.3 344 666.3 317 666.3 315 666.3 199z"
+      <rect
+        id="_x31_-4-23-25_1_"
+        x={195.5}
+        y={336.5}
+        className="st2"
+        width={115}
+        height={52}
       />
-      <path
-        className="st4"
-        d="M607.3 474L607.3 535 587.3 535 587.3 609 671.3 609 671.3 548 671.3 535 671.3 474z"
+      <rect
+        id="_x31_-4-30-32"
+        x={93.5}
+        y={417.5}
+        className="st2"
+        width={100}
+        height={52}
       />
-      <path id="r12_11_" className="st4" d="M889.3 336H999.3V428H889.3z" />
-      <path id="r12_12_" className="st4" d="M999.3 336H1078.3V428H999.3z" />
-      <path
-        className="st4" id = "2-2-6"
-        d="M735.7 227L729.3 233.4 729.3 302 800.3 302 800.3 313 834.3 313 834.3 302 834.3 227z"
+      <rect
+        id="_x31_-4-26"
+        x={193.5}
+        y={417.5}
+        className="st2"
+        width={117}
+        height={52}
       />
-      <path className="st4" id = "2-2-4" d="M834.3 227H987.3V313H834.3z" />
-      <path className="st4" id = "2-2-2" d="M987.3 227H1073.3V313H987.3z" />
-      <path className="st4" d="M1233.3 228H1310.3V308H1233.3z" />
-      <text transform="translate(64.323 190.918)" className="st17 st12">
-        {"2.4"}
-      </text>
-      <text transform="translate(729.323 218.918)" className="st17 st12">
-        {"2.2"}
-      </text>
-      <text transform="translate(1781.323 210.918)" className="st17 st12">
-        {"2.3"}
-      </text>
+      <g id="_x3C_Group_x3E_stairs" className="st3">
+        <rect x={629.5} y={466.5} className="st7" width={51} height={28} />
+        <rect x={644.3} y={467} className="st4" width={5} height={13.5} />
+        <rect x={650.3} y={480.5} className="st4" width={5} height={13.5} />
+        <g>
+          <rect x={664.3} y={467} className="st4" width={5} height={13.5} />
+          <rect x={659.3} y={467} className="st4" width={5} height={13.5} />
+          <rect x={654.3} y={467} className="st4" width={5} height={13.5} />
+          <rect x={649.3} y={467} className="st4" width={5} height={13.5} />
+          <rect x={639.3} y={467} className="st4" width={5} height={13.5} />
+          <rect x={665.3} y={480.5} className="st4" width={5} height={13.5} />
+          <rect x={660.3} y={480.5} className="st4" width={5} height={13.5} />
+          <rect x={655.3} y={480.5} className="st4" width={5} height={13.5} />
+          <rect x={645.3} y={480.5} className="st4" width={5} height={13.5} />
+          <rect x={640.3} y={480.5} className="st4" width={5} height={13.5} />
+        </g>
+      </g>
+      <polygon
+        id="_x31_-4-02-a"
+        className="st2"
+        points="416,348.5 416,335.5 516.5,335.5 553.5,335.5 553.5,201.5 383.5,201.5 383.5,294  391,294 391,348.5  "
+      />
+      <polygon
+        id="_x31_-4-toilette"
+        className="st2"
+        points="393.5,507.5 359.5,507.5 359.5,488.5 333.5,488.5 333.5,427.5 393.5,427.5  "
+      />
+      <rect x={377} y={321.8} className="st2" width={13.5} height={5} />
+      <rect x={363.5} y={314.8} className="st2" width={13.5} height={5} />
+      <rect x={377} y={341.8} className="st2" width={13.5} height={5} />
+      <rect x={377} y={336.8} className="st2" width={13.5} height={5} />
+      <rect x={377} y={331.8} className="st2" width={13.5} height={5} />
+      <rect x={642.5} y={336.5} className="st2" width={38} height={32} />
+      <rect x={377} y={326.8} className="st2" width={13.5} height={5} />
+      <rect x={377} y={316.8} className="st2" width={13.5} height={5} />
+      <rect x={363.5} y={329.8} className="st2" width={13.5} height={5} />
+      <rect x={363.5} y={324.8} className="st2" width={13.5} height={5} />
+      <rect x={363.5} y={319.8} className="st2" width={13.5} height={5} />
+      <rect x={363.5} y={309.8} className="st2" width={13.5} height={5} />
+      <rect x={363.5} y={304.8} className="st2" width={13.5} height={5} />
+      <rect x={363.5} y={201.5} className="st2" width={20} height={92} />
+      <rect
+        id="_x31_-4-04"
+        x={383.5}
+        y={201.5}
+        className="st2"
+        width={45}
+        height={69}
+      />
+      <rect x={363.5} y={294} className="st2" width={27.5} height={76.5} />
+      <rect
+        id="_x31_-4-10"
+        x={415.5}
+        y={334.5}
+        className="st2"
+        width={104}
+        height={52}
+      />
+      <rect
+        id="_x31_-4-05"
+        x={519.5}
+        y={334.5}
+        className="st2"
+        width={102}
+        height={52}
+      />
+      <polygon
+        id="_x31_-4-02"
+        className="st2"
+        points="553.5,201.5 553.5,334.5 621.5,334.5 621.5,355.5 642.5,355.5 642.5,309.5  680.5,309.5 680.5,201.5  "
+      />
+      <rect x={642.5} y={309.5} className="st8" width={38} height={27} />
+      <g className="st3">
+        <polygon
+          className="st4"
+          points="672,362 650.5,362 650.5,340.5 672,340.5 672,342.8  "
+        />
+        <line className="st5" x1={650.5} y1={362} x2={672} y2={340.5} />
+        <line className="st5" x1={672} y1={362} x2={650.5} y2={340.5} />
+      </g>
+      <rect x={642.5} y={309.5} className="st2" width={38} height={27} />
+      <polygon
+        className="st2"
+        points="23,297 23,386.2 24.8,388 67,388 67,297  "
+      />
+      <g className="st3">
+        <rect x={46} y={334} className="st4" width={21} height={5} />
+        <rect x={46} y={354} className="st4" width={21} height={5} />
+        <rect x={46} y={349} className="st4" width={21} height={5} />
+        <rect x={46} y={344} className="st4" width={21} height={5} />
+        <rect x={46} y={339} className="st4" width={21} height={5} />
+        <rect x={46} y={329} className="st4" width={21} height={5} />
+      </g>
+      <g className="st3">
+        <rect x={23.3} y={344} className="st4" width={22.7} height={5} />
+        <rect x={23.3} y={359} className="st4" width={22.7} height={5} />
+        <rect x={23.3} y={354} className="st4" width={22.7} height={5} />
+        <rect x={23.3} y={349} className="st4" width={22.7} height={5} />
+        <rect x={23.3} y={339} className="st4" width={22.7} height={5} />
+        <rect x={23.3} y={334} className="st4" width={22.7} height={5} />
+      </g>
       <text
-        transform="matrix(.7738 0 0 1 677.906 461.91)"
-        className="st17 st14"
+        transform="matrix(1.0343 0 0 1 1644.2207 715.582)"
+        className="st3 st9 st10"
       >
-        {"\xDCBERGANG"}
+        {"EBENE 1"}
       </text>
-      <text transform="translate(103.323 277.374)" className="st17 st11">
-        {"22b"}
-      </text>
-      <text transform="translate(188.323 277.374)" className="st17 st11">
-        {"22a"}
-      </text>
-      <text transform="translate(139.323 367.374)" className="st17 st11">
-        {"26"}
-      </text>
-      <text transform="translate(209.323 367.374)" className="st17 st11">
-        {"25"}
-      </text>
-      <text transform="translate(265.323 367.374)" className="st17 st11">
-        {"23"}
-      </text>
-      <text transform="translate(138.323 453.374)" className="st17 st11">
-        {"34"}
-      </text>
-      <text transform="translate(206.323 452.374)" className="st17 st11">
-        {"33"}
-      </text>
-      <path className="st4" d="M228.3 425H308.3V473H228.3z" />
-      <path className="st4" d="M196.3 425H241.3V473H196.3z" />
-      <text transform="translate(212.323 453.374)" className="st17 st11">
-        {"33"}
-      </text>
-      <text transform="translate(269.323 453.374)" className="st17 st11">
-        {"31"}
-      </text>
-      <text transform="translate(103.323 538.374)" className="st17 st11">
-        {"29"}
-      </text>
-      <text transform="translate(188.323 538.374)" className="st17 st11">
-        {"29a"}
-      </text>
-      <text transform="translate(276.323 277.374)" className="st17 st11">
-        {"22"}
-      </text>
-      <text transform="translate(280.323 538.374)" className="st17 st11">
-        {"30"}
-      </text>
-      <text transform="translate(351.323 477.374)" className="st17 st11">
-        {"WC"}
-      </text>
-      <text transform="translate(496.323 471.374)" className="st17 st11">
-        {"08"}
-      </text>
-      <text transform="translate(458.323 263.374)" className="st17 st11">
-        {"03"}
-      </text>
-      <text transform="translate(594.323 263.374)" className="st17 st11">
-        {"01"}
-      </text>
-      <text transform="translate(343.323 239.374)" className="st17 st11">
-        {"21"}
-      </text>
-      <text transform="translate(383.323 240.374)" className="st17 st11">
+      <rect
+        id="_x31_-4-11-a"
+        x={516.5}
+        y={488.5}
+        className="st2"
+        width={69}
+        height={117}
+      />
+      <text
+        transform="matrix(1 0 0 1 847.3696 367.1401)"
+        className="st3 st9 st11"
+      >
         {"05"}
       </text>
-      <text transform="translate(347.323 572.374)" className="st17 st11">
-        {"18"}
+      <text
+        transform="matrix(1 0 0 1 963.3696 367.1401)"
+        className="st3 st9 st11"
+      >
+        {"02"}
       </text>
-      <text transform="translate(381.323 572.374)" className="st17 st11">
-        {"17"}
+      <text
+        transform="matrix(1 0 0 1 1058.3696 367.1401)"
+        className="st3 st9 st11"
+      >
+        {"01"}
       </text>
-      <text transform="translate(415.323 573.374)" className="st17 st11">
-        {"16"}
+      <text
+        transform="matrix(1 0 0 1 774.3696 263.1401)"
+        className="st3 st9 st11"
+      >
+        {"10"}
       </text>
-      <text transform="translate(455.323 572.374)" className="st17 st11">
+      <text
+        transform="matrix(1 0 0 1 783.3696 199.1401)"
+        className="st3 st9 st11"
+      >
+        {"11"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 790.3696 119.1401)"
+        className="st3 st9 st11"
+      >
+        {"12"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 878.3696 119.1401)"
+        className="st3 st9 st11"
+      >
+        {"13"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 953.3696 119.1401)"
+        className="st3 st9 st11"
+      >
         {"15"}
       </text>
-      <text transform="translate(491.323 572.374)" className="st17 st11">
+      <text
+        transform="matrix(1 0 0 1 1035.3696 119.1401)"
+        className="st3 st9 st11"
+      >
+        {"16"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 904.3696 207.1401)"
+        className="st3 st9 st11"
+      >
         {"14"}
       </text>
-      <text transform="translate(522.323 572.374)" className="st17 st11">
-        {"13"}
-      </text>
-      <text transform="translate(561.323 572.374)" className="st17 st11">
-        {"12"}
-      </text>
-      <text transform="translate(631.323 451.374)" className="st17 st11">
-        {"WC"}
-      </text>
-      <path className="st4" d="M615 475.7H671.3V507.7H615z" />
-      <path className="st4" d="M657.8 490.2H663V507.7H657.8z" />
-      <g>
-        <path className="st4" d="M647.8 491.2H652.8V507.7H647.8z" />
-        <path className="st4" d="M662.8 491.2H667.8V507.7H662.8z" />
-        <path className="st4" d="M652.8 491.2H657.8V507.7H652.8z" />
-        <path className="st4" d="M642.8 491.2H647.8V507.7H642.8z" />
-        <path className="st4" d="M637.8 491.2H642.8V507.7H637.8z" />
-      </g>
-      <g>
-        <path className="st4" d="M651.8 476.2H657V491.2H651.8z" />
-        <path className="st4" d="M641.8 476.2H646.8V491.2H641.8z" />
-        <path className="st4" d="M656.8 476.2H661.8V491.2H656.8z" />
-        <path className="st4" d="M646.8 476.2H651.8V491.2H646.8z" />
-        <path className="st4" d="M636.8 476.2H641.8V491.2H636.8z" />
-        <path className="st4" d="M631.8 476.2H636.8V491.2H631.8z" />
-      </g>
-      <text transform="translate(767.323 400.374)" className="st17 st11">
-        {"WC"}
-      </text>
-      <text transform="translate(450.323 366.374)" className="st17 st11">
-        {"07"}
-      </text>
-      <text transform="translate(551.323 365.374)" className="st17 st11">
-        {"06"}
-      </text>
-      <text transform="translate(776.323 268.374)" className="st17 st11">
-        {"06"}
-      </text>
-      <text transform="translate(903.323 268.374)" className="st17 st11">
-        {"04"}
-      </text>
-      <text transform="translate(837.323 385.374)" className="st17 st11">
-        {"05"}
-      </text>
-      <text transform="translate(938.323 385.374)" className="st17 st11">
+      <text
+        transform="matrix(1 0 0 1 907.3696 265.1401)"
+        className="st3 st9 st11"
+      >
         {"03"}
       </text>
-      <text transform="translate(1022.323 271.374)" className="st17 st11">
-        {"02"}
+      <text
+        transform="matrix(1 0 0 1 1033.3696 234.1401)"
+        className="st3 st9 st11"
+      >
+        {"17"}
       </text>
-      <text transform="translate(1035.323 385.374)" className="st17 st11">
-        {"01"}
+      <text
+        transform="matrix(1 0 0 1 1219.4463 247.9043)"
+        className="st3 st9 st11"
+      >
+        {"CAFETARIA"}
       </text>
-      <text transform="translate(1160.323 199.374)" className="st17 st11">
-        {"13"}
+      <text
+        transform="matrix(1 0 0 1 1353.3696 225.1401)"
+        className="st3 st9 st11"
+      >
+        {"16"}
       </text>
-      <text transform="translate(1231.323 188.374)" className="st17 st11">
+      <text
+        transform="matrix(1 0 0 1 1353.3696 281.1401)"
+        className="st3 st9 st11"
+      >
+        {"15"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1501.0254 100.5415)"
+        className="st3 st9 st11"
+      >
+        {"15"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1584.0254 100.5415)"
+        className="st3 st9 st11"
+      >
         {"14"}
       </text>
-      <text transform="translate(1369.323 192.374)" className="st17 st11">
-        {"02"}
+      <text
+        transform="matrix(1 0 0 1 1677.0254 100.5415)"
+        className="st3 st9 st11"
+      >
+        {"13"}
       </text>
-      <text transform="translate(1258.323 131.918)" className="st17 st12">
-        {"2.1"}
-      </text>
-      <text transform="translate(1294.323 188.374)" className="st17 st11">
-        {"03"}
-      </text>
-      <text transform="translate(1366.323 279.374)" className="st17 st11">
-        {"01"}
-      </text>
-      <text transform="translate(1160.323 283.374)" className="st17 st11">
+      <text
+        transform="matrix(1 0 0 1 1768.0254 100.5415)"
+        className="st3 st9 st11"
+      >
         {"12"}
       </text>
-      <text transform="translate(1264.323 273.374)" className="st17 st11">
-        {"04"}
-      </text>
-      <text transform="translate(1187.323 453.374)" className="st17 st11">
-        {"09"}
-      </text>
-      <text transform="translate(1331.323 453.374)" className="st17 st11">
-        {"07"}
-      </text>
-      <text transform="translate(1507.323 261.374)" className="st17 st11">
+      <text
+        transform="matrix(1 0 0 1 1512.3945 229.8916)"
+        className="st3 st9 st11"
+      >
         {"02"}
       </text>
-      <text transform="translate(1631.323 261.374)" className="st17 st11">
+      <text
+        transform="matrix(1 0 0 1 1593.3945 230.8916)"
+        className="st3 st9 st11"
+      >
         {"04"}
       </text>
-      <text transform="translate(1759.323 261.374)" className="st17 st11">
+      <text
+        transform="matrix(1 0 0 1 1705.3945 230.8916)"
+        className="st3 st9 st11"
+      >
         {"06"}
       </text>
-      <text transform="translate(1760.323 391.374)" className="st17 st11">
-        {"WC"}
+      <text
+        transform="matrix(1 0 0 1 1769.3945 230.8916)"
+        className="st3 st9 st11"
+      >
+        {"08"}
       </text>
-      <text transform="translate(1675.323 379.374)" className="st17 st11">
-        {"05"}
+      <text
+        transform="matrix(1 0 0 1 1484.5029 385.4839)"
+        className="st3 st9 st11"
+      >
+        {"HM"}
       </text>
-      <text transform="translate(1571.323 379.374)" className="st17 st11">
-        {"03"}
-      </text>
-      <text transform="translate(1493.323 380.374)" className="st17 st11">
+      <text
+        transform="matrix(1 0 0 1 1529.9043 366.2993)"
+        className="st3 st9 st11"
+      >
         {"01"}
       </text>
       <text
-        transform="matrix(1.0343 0 0 1 1644.22 715.582)"
-        className="st9 st10"
+        transform="matrix(1 0 0 1 1587.9043 365.2993)"
+        className="st3 st9 st11"
       >
-        {"EBENE 2"}
+        {"03"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1652.9043 365.2993)"
+        className="st3 st9 st11"
+      >
+        {"05"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1719.9043 365.2993)"
+        className="st3 st9 st11"
+      >
+        {"07"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1770.79 374.6436)"
+        className="st3 st9 st11"
+      >
+        {"WC"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1373.79 394.6436)"
+        className="st3 st9 st11"
+      >
+        {"WC"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1167.79 390.6436)"
+        className="st3 st9 st11"
+      >
+        {"WC"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1274.4463 492.9043)"
+        className="st3 st9 st11"
+      >
+        {"MENSA"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1147.4463 575.9043)"
+        className="st3 st9 st11"
+      >
+        {"K\xDCCHE"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 779.79 382.6436)"
+        className="st3 st9 st11"
+      >
+        {"WC"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 95.5732 276.917)"
+        className="st3 st9 st11"
+      >
+        {"19"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 229.5732 276.917)"
+        className="st3 st9 st11"
+      >
+        {"19a"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 475.5732 276.917)"
+        className="st3 st9 st11"
+      >
+        {"02a"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 598.5732 276.917)"
+        className="st3 st9 st11"
+      >
+        {"02"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 130.4204 366.5542)"
+        className="st3 st9 st11"
+      >
+        {"23-25"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 239.4204 367.5542)"
+        className="st3 st9 st11"
+      >
+        {"20-22"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 125.4204 447.5542)"
+        className="st3 st9 st11"
+      >
+        {"30-32"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 243.5732 447.917)"
+        className="st3 st9 st11"
+      >
+        {"26"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 104.5732 552.917)"
+        className="st3 st9 st11"
+      >
+        {"29"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 197.5732 552.917)"
+        className="st3 st9 st11"
+      >
+        {"28"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 280.5732 552.917)"
+        className="st3 st9 st11"
+      >
+        {"27"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 351.5732 563.917)"
+        className="st3 st9 st11"
+      >
+        {"17"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 394.5732 568.917)"
+        className="st3 st9 st11"
+      >
+        {"16"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 457.5732 546.917)"
+        className="st3 st9 st11"
+      >
+        {"15"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 451.5732 443.917)"
+        className="st3 st9 st11"
+      >
+        {"12"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 563.5732 462.917)"
+        className="st3 st9 st11"
+      >
+        {"11"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 460.5732 364.917)"
+        className="st3 st9 st11"
+      >
+        {"10"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 563.5732 364.917)"
+        className="st3 st9 st11"
+      >
+        {"05"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 537.5732 546.917)"
+        className="st3 st9 st11"
+      >
+        {"11a"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 656.5732 580.917)"
+        className="st3 st9 st11"
+      >
+        {"01"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 349.6367 452.8979)"
+        className="st3 st9 st11"
+      >
+        {"WC"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 399.5732 241.917)"
+        className="st3 st9 st11"
+      >
+        {"04"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 67.5732 193.4609)"
+        className="st3 st9 st12"
+      >
+        {"1.4"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 747.5732 60.4609)"
+        className="st3 st9 st12"
+      >
+        {"1.2"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1260.5732 65.4609)"
+        className="st3 st9 st12"
+      >
+        {"1.1"}
+      </text>
+      <text
+        transform="matrix(1 0 0 1 1770.5732 38.4609)"
+        className="st3 st9 st12"
+      >
+        {"1.3"}
+      </text>
+      <polygon className="st13" points="686.4,399.6 703,383 703.3,416.6  " />
+      <text
+        transform="matrix(0.7738 0 0 1 686.1563 452.4521)"
+        className="st3 st9 st14"
+      >
+        {"EINGANG"}
+      </text>
+      <polygon
+        className="st13"
+        points="1453.8,416 1470.9,432.2 1437.4,433.4  "
+      />
+      <text
+        transform="matrix(0.7738 0 0 1 1425.1563 458.4521)"
+        className="st3 st9 st14"
+      >
+        {"EINGANG"}
       </text>
     </g>
+    <polygon
+      id="floor"
+      className="st15"
+      points="1412.3,219 1412.3,196 1130.3,196 1130.3,289 799.3,289 786.3,289 666.3,289 666.3,199  66.3,199 66.3,609 666.3,609 666.3,418 799.3,418 799.3,404 1130.3,404 1130.3,425 1412.3,425 1412.3,403 1811.3,403 1811.3,219 "
+    />
+    <rect x={631.3} y={343} className="st4" width={35} height={28} />
+    <rect x={350.3} y={297.5} className="st4" width={32} height={76.5} />
+    <rect
+      id="2-4-29"
+      x={66.3}
+      y={447}
+      className="st4"
+      width={92}
+      height={162}
+    />
+    <rect
+      id="2-4-29-a"
+      x={158.3}
+      y={447}
+      className="st4"
+      width={89}
+      height={162}
+    />
+    <polygon
+      id="2-4-30"
+      className="st4"
+      points="332.3,443.5 247.3,443.5 247.3,609 332.3,609 332.3,470.3 332.3,470.3 "
+    />
+    <rect
+      id="2-4-18"
+      x={332.3}
+      y={535}
+      className="st4"
+      width={44}
+      height={74}
+    />
+    <rect
+      id="2-4-17"
+      x={376.3}
+      y={535}
+      className="st4"
+      width={23}
+      height={74}
+    />
+    <rect
+      id="2-4-8"
+      x={409.3}
+      y={419}
+      className="st4"
+      width={182}
+      height={95}
+    />
+    <polygon
+      id="2-4-22-b"
+      className="st4"
+      points="93.9,339.4 158.8,339.4 158.8,199.5 66.3,199.5 66.3,355 93.9,355 "
+    />
+    <rect
+      id="2-4-34"
+      x={92.3}
+      y={425}
+      className="st4"
+      width={104}
+      height={48}
+    />
+    <g id="_x3C_Group_x3E_stairs_1_">
+      <rect x={617.3} y={476} className="st7" width={51} height={28} />
+      <rect x={632} y={476.5} className="st4" width={5} height={13.5} />
+      <rect x={638} y={490} className="st4" width={5} height={13.5} />
+      <g>
+        <rect x={652} y={476.5} className="st4" width={5} height={13.5} />
+        <rect x={647} y={476.5} className="st4" width={5} height={13.5} />
+        <rect x={642} y={476.5} className="st4" width={5} height={13.5} />
+        <rect x={637} y={476.5} className="st4" width={5} height={13.5} />
+        <rect x={627} y={476.5} className="st4" width={5} height={13.5} />
+        <rect x={653} y={490} className="st4" width={5} height={13.5} />
+        <rect x={648} y={490} className="st4" width={5} height={13.5} />
+        <rect x={643} y={490} className="st4" width={5} height={13.5} />
+        <rect x={633} y={490} className="st4" width={5} height={13.5} />
+        <rect x={628} y={490} className="st4" width={5} height={13.5} />
+      </g>
+    </g>
+    <polygon
+      id="2-4-toilette"
+      className="st4"
+      points="385.8,511 355.4,511 332.3,511 332.3,492 332.3,431 385.8,431 "
+    />
+    <rect x={350.3} y={340.2} className="st4" width={17.5} height={5.2} />
+    <g>
+      <rect x={350.3} y={330.2} className="st4" width={16.5} height={5} />
+      <rect x={350.3} y={345.2} className="st4" width={16.5} height={5} />
+      <rect x={350.3} y={335.2} className="st4" width={16.5} height={5} />
+      <rect x={350.3} y={325.2} className="st4" width={16.5} height={5} />
+      <rect x={350.3} y={320.2} className="st4" width={16.5} height={5} />
+    </g>
+    <rect
+      id="2-4-7"
+      x={409.3}
+      y={338}
+      className="st4"
+      width={99}
+      height={52}
+    />
+    <rect
+      id="2-4-6"
+      x={508.3}
+      y={338}
+      className="st4"
+      width={99}
+      height={52}
+    />
+    <g>
+      <polygon
+        className="st4"
+        points="659.8,367.5 638.3,367.5 638.3,346 659.8,346 659.8,348.3  "
+      />
+      <line className="st5" x1={638.3} y1={367.5} x2={659.8} y2={346} />
+      <line className="st5" x1={659.8} y1={367.5} x2={638.3} y2={346} />
+    </g>
+    <polygon
+      className="st4"
+      points="21.8,300.5 21.8,389.7 23.5,391.5 65.8,391.5 65.8,300.5 "
+    />
+    <g>
+      <rect x={44.8} y={337.5} className="st4" width={21} height={5} />
+      <rect x={44.8} y={357.5} className="st4" width={21} height={5} />
+      <rect x={44.8} y={352.5} className="st4" width={21} height={5} />
+      <rect x={44.8} y={347.5} className="st4" width={21} height={5} />
+      <rect x={44.8} y={342.5} className="st4" width={21} height={5} />
+      <rect x={44.8} y={332.5} className="st4" width={21} height={5} />
+    </g>
+    <g>
+      <rect x={22.1} y={347.5} className="st4" width={22.7} height={5} />
+      <rect x={22.1} y={362.5} className="st4" width={22.7} height={5} />
+      <rect x={22.1} y={357.5} className="st4" width={22.7} height={5} />
+      <rect x={22.1} y={352.5} className="st4" width={22.7} height={5} />
+      <rect x={22.1} y={342.5} className="st4" width={22.7} height={5} />
+      <rect x={22.1} y={337.5} className="st4" width={22.7} height={5} />
+    </g>
+    <rect
+      id="2-4-16"
+      x={399.3}
+      y={535}
+      className="st4"
+      width={45}
+      height={74}
+    />
+    <rect
+      id="2-4-15"
+      x={444.3}
+      y={535}
+      className="st4"
+      width={34}
+      height={74}
+    />
+    <rect
+      id="2-4-14"
+      x={478.3}
+      y={535}
+      className="st4"
+      width={37}
+      height={74}
+    />
+    <rect
+      id="2-4-13"
+      x={515.3}
+      y={535}
+      className="st4"
+      width={31}
+      height={74}
+    />
+    <rect
+      id="2-4-12"
+      x={546.3}
+      y={535}
+      className="st4"
+      width={41}
+      height={74}
+    />
+    <rect
+      id="2-4-toilette_1_"
+      x={607.3}
+      y={418}
+      className="st4"
+      width={64}
+      height={58}
+    />
+    <rect x={607.3} y={462} className="st4" width={31} height={16} />
+    <rect
+      id="2-4-5_1_"
+      x={799.3}
+      y={336}
+      className="st4"
+      width={90}
+      height={92}
+    />
+    <path className="st4" d="M1735.3,334" />
+    <path className="st4" d="M1735.3,349.8" />
+    <polygon
+      id="2-2-toilette"
+      className="st4"
+      points="791,437.3 791,418 799.3,418 799.3,361 754.3,361 754.3,440 788.5,439.9 "
+    />
+    <polygon
+      className="st4"
+      points="711.8,421.3 711.8,336 754.3,336 754.3,426 716.1,426 "
+    />
+    <g>
+      <rect x={711.8} y={384} className="st4" width={21.3} height={5} />
+      <rect x={733} y={378} className="st4" width={21.3} height={5} />
+      <g>
+        <rect x={711.8} y={364} className="st4" width={21.3} height={5} />
+        <rect x={711.8} y={369} className="st4" width={21.3} height={5} />
+        <rect x={711.8} y={374} className="st4" width={21.3} height={5} />
+        <rect x={711.8} y={379} className="st4" width={21.3} height={5} />
+        <rect x={711.8} y={389} className="st4" width={21.3} height={5} />
+        <rect x={733} y={363} className="st4" width={21.3} height={5} />
+        <rect x={733} y={368} className="st4" width={21.3} height={5} />
+        <rect x={733} y={373} className="st4" width={21.3} height={5} />
+        <rect x={733} y={383} className="st4" width={21.3} height={5} />
+        <rect x={733} y={388} className="st4" width={21.3} height={5} />
+      </g>
+    </g>
+    <polygon
+      className="st4"
+      points="1078.6,195.5 1073.7,200.3 1073.3,300 1125.8,299.5 1125.8,195.5 "
+    />
+    <g>
+      <rect x={1074.3} y={244} className="st4" width={26} height={5} />
+      <rect x={1100.3} y={238} className="st4" width={26} height={5} />
+      <g>
+        <rect x={1074.3} y={224} className="st4" width={26} height={5} />
+        <rect x={1074.3} y={229} className="st4" width={26} height={5} />
+        <rect x={1074.3} y={234} className="st4" width={26} height={5} />
+        <rect x={1074.3} y={239} className="st4" width={26} height={5} />
+        <rect x={1074.3} y={249} className="st4" width={26} height={5} />
+        <rect x={1100.3} y={223} className="st4" width={26} height={5} />
+        <rect x={1100.3} y={228} className="st4" width={26} height={5} />
+        <rect x={1100.3} y={233} className="st4" width={26} height={5} />
+        <rect x={1100.3} y={243} className="st4" width={26} height={5} />
+        <rect x={1100.3} y={248} className="st4" width={26} height={5} />
+      </g>
+    </g>
+    <rect
+      id="2-1-13"
+      x={1125.3}
+      y={143}
+      className="st4"
+      width={83.4}
+      height={95}
+    />
+    <rect
+      id="2-1-14"
+      x={1208.6}
+      y={143}
+      className="st4"
+      width={58.6}
+      height={84}
+    />
+    <rect
+      id="2-1-3"
+      x={1266.9}
+      y={143}
+      className="st4"
+      width={66.9}
+      height={84}
+    />
+    <rect
+      id="2-1-2"
+      x={1333.8}
+      y={143}
+      className="st4"
+      width={84.4}
+      height={95}
+    />
+    <polygon
+      id="2-1-12"
+      className="st4"
+      points="1125.8,238 1125.8,305.9 1140.5,321 1208.6,321 1208.6,238 "
+    />
+    <polygon
+      id="2-1-1"
+      className="st4"
+      points="1417.8,237.5 1417.8,305.4 1402.8,320.5 1333.8,320.5 1333.8,237.5 "
+    />
+    <rect
+      id="2-3-4"
+      x={1559.3}
+      y={219}
+      className="st4"
+      width={158}
+      height={80}
+    />
+    <polygon
+      id="2-3-2"
+      className="st4"
+      points="1468.3,219 1467.3,291 1474.3,291 1474.3,300 1559.3,299 1559.3,219 "
+    />
+    <polygon
+      id="2-3-6"
+      className="st4"
+      points="1748.4,285 1811.8,285 1811.8,219 1717.3,219 1717.3,299 1748.4,299 "
+    />
+    <rect
+      id="r12_15_"
+      x={1417.8}
+      y={191}
+      className="st4"
+      width={50}
+      height={100}
+    />
+    <g>
+      <rect x={1417.8} y={219} className="st4" width={25} height={5} />
+      <rect x={1417.8} y={224} className="st4" width={25} height={5} />
+      <rect x={1417.8} y={229} className="st4" width={25} height={5} />
+      <rect x={1417.8} y={234} className="st4" width={25} height={5} />
+      <rect x={1417.8} y={239} className="st4" width={25} height={5} />
+      <rect x={1417.8} y={244} className="st4" width={25} height={5} />
+    </g>
+    <g>
+      <rect x={1443.3} y={223} className="st4" width={25} height={5} />
+      <rect x={1443.3} y={228} className="st4" width={25} height={5} />
+      <rect x={1443.3} y={233} className="st4" width={25} height={5} />
+      <rect x={1443.3} y={238} className="st4" width={25} height={5} />
+      <rect x={1443.3} y={243} className="st4" width={25} height={5} />
+      <rect x={1443.3} y={248} className="st4" width={25} height={5} />
+    </g>
+    <rect x={1461.3} y={330} className="st4" width={81} height={95} />
+    <rect
+      id="2-3-4_1_"
+      x={1542.3}
+      y={330}
+      className="st4"
+      width={78}
+      height={95}
+    />
+    <rect
+      id="2-3-5"
+      x={1620.3}
+      y={330}
+      className="st4"
+      width={125}
+      height={95}
+    />
+    <polygon
+      id="2-3-toilette"
+      className="st4"
+      points="1745.3,352 1745.3,406 1752.3,406 1752.3,430 1755.3,433 1790.3,433 1790.3,352 "
+    />
+    <polygon
+      className="st4"
+      points="1831.3,410.8 1831.3,326 1790.8,326 1790.8,415.5 1827.1,415.5 "
+    />
+    <g>
+      <rect x={1810.8} y={348} className="st4" width={20} height={5} />
+      <rect x={1810.8} y={353} className="st4" width={20} height={5} />
+      <rect x={1810.8} y={358} className="st4" width={20} height={5} />
+      <rect x={1810.8} y={363} className="st4" width={20} height={5} />
+      <rect x={1810.8} y={368} className="st4" width={20} height={5} />
+      <rect x={1810.8} y={373} className="st4" width={20} height={5} />
+      <rect x={1790.8} y={347} className="st4" width={20} height={5} />
+      <rect x={1790.8} y={352} className="st4" width={20} height={5} />
+      <rect x={1790.8} y={357} className="st4" width={20} height={5} />
+      <rect x={1790.8} y={362} className="st4" width={20} height={5} />
+      <rect x={1790.8} y={367} className="st4" width={20} height={5} />
+      <rect x={1790.8} y={372} className="st4" width={20} height={5} />
+    </g>
+    <rect
+      id="2-1-9"
+      x={1130.3}
+      y={420}
+      className="st4"
+      width={131}
+      height={63}
+    />
+    <rect
+      id="2-1-7"
+      x={1261.3}
+      y={420}
+      className="st4"
+      width={151}
+      height={63}
+    />
+    <rect
+      id="2-4-22-a"
+      x={158.3}
+      y={199}
+      className="st4"
+      width={80}
+      height={141}
+    />
+    <polygon
+      id="2-4-22"
+      className="st4"
+      points="238.3,199.5 238.3,339.3 305.3,339.3 305.3,362.5 327.3,362.5 327.3,339.3 327.3,199.5  "
+    />
+    <rect x={94.3} y={340} className="st4" width={99} height={48} />
+    <rect x={225.3} y={340} className="st4" width={80} height={48} />
+    <rect x={193.3} y={340} className="st4" width={45} height={48} />
+    <g>
+      <rect x={366.7} y={334.2} className="st4" width={15} height={5.2} />
+      <g>
+        <rect x={366.7} y={324.2} className="st4" width={15} height={5} />
+        <rect x={366.7} y={339.2} className="st4" width={15} height={5} />
+        <rect x={366.7} y={329.2} className="st4" width={15} height={5} />
+        <rect x={366.7} y={319.2} className="st4" width={15} height={5} />
+        <rect x={366.7} y={314.2} className="st4" width={15} height={5} />
+      </g>
+    </g>
+    <rect
+      id="2-4-21"
+      x={327.3}
+      y={199}
+      className="st4"
+      width={41}
+      height={74}
+    />
+    <rect
+      id="2-4-5"
+      x={368.3}
+      y={199}
+      className="st4"
+      width={41}
+      height={74}
+    />
+    <rect
+      id="2-4-3"
+      x={409.3}
+      y={199}
+      className="st4"
+      width={118}
+      height={118}
+    />
+    <polygon
+      id="2-4-1"
+      className="st4"
+      points="528.3,199 528.3,317 631.3,317 631.3,344 666.3,344 666.3,317 666.3,315 666.3,199 "
+    />
+    <polygon
+      className="st4"
+      points="607.3,474 607.3,535 587.3,535 587.3,609 671.3,609 671.3,548 671.3,535 671.3,474 "
+    />
+    <rect
+      id="2-2-3"
+      x={889.3}
+      y={336}
+      className="st4"
+      width={110}
+      height={92}
+    />
+    <rect
+      id="2-2-1"
+      x={999.3}
+      y={336}
+      className="st4"
+      width={79}
+      height={92}
+    />
+    <polygon
+      id="2-2-6"
+      className="st4"
+      points="735.7,227 729.3,233.4 729.3,302 800.3,302 800.3,313 834.3,313 834.3,302 834.3,227 "
+    />
+    <rect
+      id="2-4-4"
+      x={834.3}
+      y={227}
+      className="st4"
+      width={153}
+      height={86}
+    />
+    <rect
+      id="2-4-2"
+      x={987.3}
+      y={227}
+      className="st4"
+      width={86}
+      height={86}
+    />
+    <rect
+      id="2-1-14_1_"
+      x={1233.3}
+      y={228}
+      className="st4"
+      width={77}
+      height={80}
+    />
+    <text transform="matrix(1 0 0 1 64.3232 190.918)" className="st9 st12">
+      {"2.4"}
+    </text>
+    <text transform="matrix(1 0 0 1 729.3232 218.918)" className="st9 st12">
+      {"2.2"}
+    </text>
+    <text transform="matrix(1 0 0 1 1781.3232 210.918)" className="st9 st12">
+      {"2.3"}
+    </text>
+    <text
+      transform="matrix(0.7738 0 0 1 677.9063 461.9092)"
+      className="st9 st14"
+    >
+      {"\xDCBERGANG"}
+    </text>
+    <text transform="matrix(1 0 0 1 103.3232 277.374)" className="st9 st11">
+      {"22b"}
+    </text>
+    <text transform="matrix(1 0 0 1 188.3232 277.374)" className="st9 st11">
+      {"22a"}
+    </text>
+    <text transform="matrix(1 0 0 1 139.3232 367.374)" className="st9 st11">
+      {"26"}
+    </text>
+    <text transform="matrix(1 0 0 1 209.3232 367.374)" className="st9 st11">
+      {"25"}
+    </text>
+    <text transform="matrix(1 0 0 1 265.3232 367.374)" className="st9 st11">
+      {"23"}
+    </text>
+    <text transform="matrix(1 0 0 1 138.3232 453.374)" className="st9 st11">
+      {"34"}
+    </text>
+    <text transform="matrix(1 0 0 1 206.3232 452.374)" className="st9 st11">
+      {"33"}
+    </text>
+    <rect
+      id="2-4-31"
+      x={228.3}
+      y={425}
+      className="st4"
+      width={80}
+      height={48}
+    />
+    <rect
+      id="2-4-33"
+      x={196.3}
+      y={425}
+      className="st4"
+      width={45}
+      height={48}
+    />
+    <text transform="matrix(1 0 0 1 212.3232 453.374)" className="st9 st11">
+      {"33"}
+    </text>
+    <text transform="matrix(1 0 0 1 269.3232 453.374)" className="st9 st11">
+      {"31"}
+    </text>
+    <text transform="matrix(1 0 0 1 103.3232 538.374)" className="st9 st11">
+      {"29"}
+    </text>
+    <text transform="matrix(1 0 0 1 188.3232 538.374)" className="st9 st11">
+      {"29a"}
+    </text>
+    <text transform="matrix(1 0 0 1 276.3232 277.374)" className="st9 st11">
+      {"22"}
+    </text>
+    <text transform="matrix(1 0 0 1 280.3232 538.374)" className="st9 st11">
+      {"30"}
+    </text>
+    <text transform="matrix(1 0 0 1 351.3232 477.374)" className="st9 st11">
+      {"WC"}
+    </text>
+    <text transform="matrix(1 0 0 1 496.3232 471.374)" className="st9 st11">
+      {"08"}
+    </text>
+    <text transform="matrix(1 0 0 1 458.3232 263.374)" className="st9 st11">
+      {"03"}
+    </text>
+    <text transform="matrix(1 0 0 1 594.3232 263.374)" className="st9 st11">
+      {"01"}
+    </text>
+    <text transform="matrix(1 0 0 1 343.3232 239.374)" className="st9 st11">
+      {"21"}
+    </text>
+    <text transform="matrix(1 0 0 1 383.3232 240.374)" className="st9 st11">
+      {"05"}
+    </text>
+    <text transform="matrix(1 0 0 1 347.3232 572.374)" className="st9 st11">
+      {"18"}
+    </text>
+    <text transform="matrix(1 0 0 1 381.3232 572.374)" className="st9 st11">
+      {"17"}
+    </text>
+    <text transform="matrix(1 0 0 1 415.3232 573.374)" className="st9 st11">
+      {"16"}
+    </text>
+    <text transform="matrix(1 0 0 1 455.3232 572.374)" className="st9 st11">
+      {"15"}
+    </text>
+    <text transform="matrix(1 0 0 1 491.3232 572.374)" className="st9 st11">
+      {"14"}
+    </text>
+    <text transform="matrix(1 0 0 1 522.3232 572.374)" className="st9 st11">
+      {"13"}
+    </text>
+    <text transform="matrix(1 0 0 1 561.3232 572.374)" className="st9 st11">
+      {"12"}
+    </text>
+    <text transform="matrix(1 0 0 1 631.3232 451.374)" className="st9 st11">
+      {"WC"}
+    </text>
+    <rect x={615} y={475.7} className="st4" width={56.3} height={32} />
+    <rect x={657.8} y={490.2} className="st4" width={5.2} height={17.5} />
+    <g>
+      <rect x={647.8} y={491.2} className="st4" width={5} height={16.5} />
+      <rect x={662.8} y={491.2} className="st4" width={5} height={16.5} />
+      <rect x={652.8} y={491.2} className="st4" width={5} height={16.5} />
+      <rect x={642.8} y={491.2} className="st4" width={5} height={16.5} />
+      <rect x={637.8} y={491.2} className="st4" width={5} height={16.5} />
+    </g>
+    <g>
+      <rect x={651.8} y={476.2} className="st4" width={5.2} height={15} />
+      <g>
+        <rect x={641.8} y={476.2} className="st4" width={5} height={15} />
+        <rect x={656.8} y={476.2} className="st4" width={5} height={15} />
+        <rect x={646.8} y={476.2} className="st4" width={5} height={15} />
+        <rect x={636.8} y={476.2} className="st4" width={5} height={15} />
+        <rect x={631.8} y={476.2} className="st4" width={5} height={15} />
+      </g>
+    </g>
+    <text transform="matrix(1 0 0 1 767.3232 400.374)" className="st9 st11">
+      {"WC"}
+    </text>
+    <text transform="matrix(1 0 0 1 450.3232 366.374)" className="st9 st11">
+      {"07"}
+    </text>
+    <text transform="matrix(1 0 0 1 551.3232 365.374)" className="st9 st11">
+      {"06"}
+    </text>
+    <text transform="matrix(1 0 0 1 776.3232 268.374)" className="st9 st11">
+      {"06"}
+    </text>
+    <text transform="matrix(1 0 0 1 903.3232 268.374)" className="st9 st11">
+      {"04"}
+    </text>
+    <text transform="matrix(1 0 0 1 837.3232 385.374)" className="st9 st11">
+      {"05"}
+    </text>
+    <text transform="matrix(1 0 0 1 938.3232 385.374)" className="st9 st11">
+      {"03 "}
+    </text>
+    <text transform="matrix(1 0 0 1 1022.3232 271.374)" className="st9 st11">
+      {"02"}
+    </text>
+    <text transform="matrix(1 0 0 1 1035.3232 385.374)" className="st9 st11">
+      {"01"}
+    </text>
+    <text transform="matrix(1 0 0 1 1160.3232 199.374)" className="st9 st11">
+      {"13"}
+    </text>
+    <text transform="matrix(1 0 0 1 1231.3232 188.374)" className="st9 st11">
+      {"14"}
+    </text>
+    <text transform="matrix(1 0 0 1 1369.3232 192.374)" className="st9 st11">
+      {"02"}
+    </text>
+    <text transform="matrix(1 0 0 1 1258.3232 131.918)" className="st9 st12">
+      {"2.1"}
+    </text>
+    <text transform="matrix(1 0 0 1 1294.3232 188.374)" className="st9 st11">
+      {"03"}
+    </text>
+    <text transform="matrix(1 0 0 1 1366.3232 279.374)" className="st9 st11">
+      {"01"}
+    </text>
+    <text transform="matrix(1 0 0 1 1160.3232 283.374)" className="st9 st11">
+      {"12"}
+    </text>
+    <text transform="matrix(1 0 0 1 1264.3232 273.374)" className="st9 st11">
+      {"04"}
+    </text>
+    <text transform="matrix(1 0 0 1 1187.3232 453.374)" className="st9 st11">
+      {"09"}
+    </text>
+    <text transform="matrix(1 0 0 1 1331.3232 453.374)" className="st9 st11">
+      {"07"}
+    </text>
+    <text transform="matrix(1 0 0 1 1507.3232 261.374)" className="st9 st11">
+      {"02"}
+    </text>
+    <text transform="matrix(1 0 0 1 1631.3232 261.374)" className="st9 st11">
+      {"04"}
+    </text>
+    <text transform="matrix(1 0 0 1 1759.3232 261.374)" className="st9 st11">
+      {"06"}
+    </text>
+    <text transform="matrix(1 0 0 1 1760.3232 391.374)" className="st9 st11">
+      {"WC"}
+    </text>
+    <text transform="matrix(1 0 0 1 1675.3232 379.374)" className="st9 st11">
+      {"05"}
+    </text>
+    <text transform="matrix(1 0 0 1 1571.3232 379.374)" className="st9 st11">
+      {"03"}
+    </text>
+    <text transform="matrix(1 0 0 1 1493.3232 380.374)" className="st9 st11">
+      {"01"}
+    </text>
+    <text
+      transform="matrix(1.0343 0 0 1 1644.2207 715.582)"
+      className="st9 st10"
+    >
+      {"EBENE 2"}
+    </text>
   </svg>
 )
 
 }
 
-export default MapSvg;
+export default MapSvg_2;
