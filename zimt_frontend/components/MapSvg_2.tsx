@@ -1,15 +1,50 @@
-import React, {useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import { BasicRoomDetails } from "../functions/fetchRooms";
+import getRoomId from "../functions/fetchId";
 
 type SvgComponentProps = {
-  handlePathClick: (id: string) => void;
+  setSelectedRoom: Dispatch<SetStateAction<BasicRoomDetails | undefined>>
+  roomArray: BasicRoomDetails[]
+  selectedRoom: BasicRoomDetails | undefined
 };
 
-const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
-  const handleClick = (event: React.MouseEvent<SVGPathElement>) => {
-    const pathId = event.currentTarget.id;
-    handlePathClick(pathId);
-    console.log(pathId);
-  };
+const MapSvg_2: React.FC<SvgComponentProps> = ({ setSelectedRoom, roomArray, selectedRoom }) => {
+  const handleSelectChange = () => {
+    var list = document.getElementsByClassName("selected");
+    // @ts-ignore
+    for (let item of list) {
+        item.style.fill = ""
+        item.classList.remove("selected")
+    }
+}
+
+const handleClick = (event: React.MouseEvent<SVGPathElement>) => {
+
+    handleSelectChange();
+
+    event.currentTarget.style.fill = "tomato"
+    event.currentTarget.classList.add("selected")
+    getRoomId(event.currentTarget.id).then(data => {
+        data?.id && setSelectedRoom(roomArray.find(room => room.id === data.id));
+    })
+};
+
+const convertroom2Name = (room : BasicRoomDetails) => {
+ return `${room.floor}-${room.building_section}-${room.room}${room.subroom_description && "-" + room.subroom_description}`
+}
+
+useEffect(() => { 
+    handleSelectChange();
+    if(selectedRoom){
+
+    const element =document.getElementById(convertroom2Name(selectedRoom)) 
+
+    console.log(convertroom2Name(selectedRoom))
+    // @ts-ignore
+    element?.classList.add("selected")
+    element && element.setAttribute("style","fill:tomato;")
+    }
+},[selectedRoom, setSelectedRoom])
 
   return (
     <svg
@@ -23,7 +58,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
   >
     <style type="text/css">
       {
-        "\n\t.st0{display:none;}\n\t.st1{display:inline;fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n\t.st4:hover,.st2:hover{fill:tomato}\n\t.st2{display:inline;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st3{display:inline;}\n\t.st4{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st5{fill:none;stroke:#000000;stroke-miterlimit:10;}\n\t.st6{display:inline;opacity:1;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st7{opacity:0.7;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st8{display:inline;opacity:0.3;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st9{font-family:'Arial';}\n\t.st10{font-size:61.6679px;}\n\t.st11{font-size:14px;}\n\t.st12{font-size:34.1556px;}\n\t.st13{display:inline;fill:#FF0000;}\n\t.st14{font-size:22.1902px;}\n\t.st15{fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n"
+        "\n\t.st0{display:none;}\n\t.st1{display:inline;fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n\t.selected{fill:tomato}.st4:hover,.st2:hover{fill:tomato}\n\t.st2{display:inline;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st3{display:inline;}\n\t.st4{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st5{fill:none;stroke:#000000;stroke-miterlimit:10;}\n\t.st6{display:inline;opacity:1;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st7{opacity:0.7;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st8{display:inline;opacity:0.3;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st9{font-family:'Arial';}\n\t.st10{font-size:61.6679px;}\n\t.st11{font-size:14px;}\n\t.st12{font-size:34.1556px;}\n\t.st13{display:inline;fill:#FF0000;}\n\t.st14{font-size:22.1902px;}\n\t.st15{fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n"
       }
     </style>
     <g className="st0">
@@ -993,6 +1028,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={92}
       height={162}
+      onClick={handleClick}
     />
     <rect
       id="2-4-29-a"
@@ -1001,11 +1037,13 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={89}
       height={162}
+      onClick={handleClick}
     />
     <polygon
       id="2-4-30"
       className="st4"
       points="332.3,443.5 247.3,443.5 247.3,609 332.3,609 332.3,470.3 332.3,470.3 "
+      onClick={handleClick}
     />
     <rect
       id="2-4-18"
@@ -1013,7 +1051,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       y={535}
       className="st4"
       width={44}
-      height={74}
+      height={74}  onClick={handleClick}
     />
     <rect
       id="2-4-17"
@@ -1022,6 +1060,8 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={23}
       height={74}
+      onClick={handleClick}
+
     />
     <rect
       id="2-4-8"
@@ -1030,11 +1070,13 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={182}
       height={95}
+      onClick={handleClick}
     />
     <polygon
       id="2-4-22-b"
       className="st4"
       points="93.9,339.4 158.8,339.4 158.8,199.5 66.3,199.5 66.3,355 93.9,355 "
+      onClick={handleClick}
     />
     <rect
       id="2-4-34"
@@ -1043,6 +1085,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={104}
       height={48}
+      onClick={handleClick}
     />
     <g id="_x3C_Group_x3E_stairs_1_">
       <rect x={617.3} y={476} className="st7" width={51} height={28} />
@@ -1081,6 +1124,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={99}
       height={52}
+      onClick={handleClick}
     />
     <rect
       id="2-4-6"
@@ -1089,6 +1133,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={99}
       height={52}
+      onClick={handleClick}
     />
     <g>
       <polygon
@@ -1125,6 +1170,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={45}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-15"
@@ -1133,6 +1179,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={34}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-14"
@@ -1141,6 +1188,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={37}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-13"
@@ -1149,6 +1197,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={31}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-12"
@@ -1168,12 +1217,13 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
     />
     <rect x={607.3} y={462} className="st4" width={31} height={16} />
     <rect
-      id="2-4-5_1_"
+      id="2-2-5"
       x={799.3}
       y={336}
       className="st4"
       width={90}
       height={92}
+      onClick={handleClick}
     />
     <path className="st4" d="M1735.3,334" />
     <path className="st4" d="M1735.3,349.8" />
@@ -1229,6 +1279,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={83.4}
       height={95}
+      onClick={handleClick}
     />
     <rect
       id="2-1-14"
@@ -1237,6 +1288,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={58.6}
       height={84}
+      onClick={handleClick}
     />
     <rect
       id="2-1-3"
@@ -1245,6 +1297,8 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={66.9}
       height={84}
+      onClick={handleClick}
+      
     />
     <rect
       id="2-1-2"
@@ -1253,16 +1307,19 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={84.4}
       height={95}
+      onClick={handleClick}
     />
     <polygon
       id="2-1-12"
       className="st4"
       points="1125.8,238 1125.8,305.9 1140.5,321 1208.6,321 1208.6,238 "
+      onClick={handleClick}
     />
     <polygon
       id="2-1-1"
       className="st4"
       points="1417.8,237.5 1417.8,305.4 1402.8,320.5 1333.8,320.5 1333.8,237.5 "
+      onClick={handleClick}
     />
     <rect
       id="2-3-4"
@@ -1271,9 +1328,11 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={158}
       height={80}
+      onClick={handleClick}
     />
     <polygon
       id="2-3-2"
+      onClick={handleClick}
       className="st4"
       points="1468.3,219 1467.3,291 1474.3,291 1474.3,300 1559.3,299 1559.3,219 "
     />
@@ -1281,6 +1340,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       id="2-3-6"
       className="st4"
       points="1748.4,285 1811.8,285 1811.8,219 1717.3,219 1717.3,299 1748.4,299 "
+      onClick={handleClick}
     />
     <rect
       id="r12_15_"
@@ -1306,14 +1366,15 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       <rect x={1443.3} y={243} className="st4" width={25} height={5} />
       <rect x={1443.3} y={248} className="st4" width={25} height={5} />
     </g>
-    <rect x={1461.3} y={330} className="st4" width={81} height={95} />
+    <rect id= "2-3-2" onClick={handleClick} x={1461.3} y={330} className="st4" width={81} height={95} />
     <rect
-      id="2-3-4_1_"
+      id="2-3-4"
       x={1542.3}
       y={330}
       className="st4"
       width={78}
       height={95}
+      onClick={handleClick}
     />
     <rect
       id="2-3-5"
@@ -1322,6 +1383,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={125}
       height={95}
+      onClick={handleClick}
     />
     <polygon
       id="2-3-toilette"
@@ -1353,6 +1415,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={131}
       height={63}
+      onClick={handleClick}
     />
     <rect
       id="2-1-7"
@@ -1361,6 +1424,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={151}
       height={63}
+      onClick={handleClick}
     />
     <rect
       id="2-4-22-a"
@@ -1369,15 +1433,17 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={80}
       height={141}
+      onClick={handleClick}
     />
     <polygon
       id="2-4-22"
       className="st4"
       points="238.3,199.5 238.3,339.3 305.3,339.3 305.3,362.5 327.3,362.5 327.3,339.3 327.3,199.5  "
+      onClick={handleClick}
     />
-    <rect x={94.3} y={340} className="st4" width={99} height={48} />
-    <rect x={225.3} y={340} className="st4" width={80} height={48} />
-    <rect x={193.3} y={340} className="st4" width={45} height={48} />
+    <rect id = "2-4-26"  onClick={handleClick} x={94.3} y={340} className="st4" width={99} height={48} />
+    <rect x={225.3} onClick={handleClick} id="2-4-23" y={340} className="st4" width={80} height={48} />
+    <rect x={193.3} onClick={handleClick} id="2-4-25" y={340} className="st4" width={45} height={48} />
     <g>
       <rect x={366.7} y={334.2} className="st4" width={15} height={5.2} />
       <g>
@@ -1395,6 +1461,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={41}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-5"
@@ -1403,6 +1470,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={41}
       height={74}
+      onClick={handleClick}
     />
     <rect
       id="2-4-3"
@@ -1411,11 +1479,13 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={118}
       height={118}
+      onClick={handleClick}
     />
     <polygon
       id="2-4-1"
       className="st4"
       points="528.3,199 528.3,317 631.3,317 631.3,344 666.3,344 666.3,317 666.3,315 666.3,199 "
+      onClick={handleClick}
     />
     <polygon
       className="st4"
@@ -1428,6 +1498,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={110}
       height={92}
+      onClick={handleClick}
     />
     <rect
       id="2-2-1"
@@ -1436,35 +1507,40 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={79}
       height={92}
+      onClick={handleClick}
     />
     <polygon
       id="2-2-6"
       className="st4"
       points="735.7,227 729.3,233.4 729.3,302 800.3,302 800.3,313 834.3,313 834.3,302 834.3,227 "
+      onClick={handleClick}
     />
     <rect
-      id="2-4-4"
+      id="2-2-4"
       x={834.3}
       y={227}
       className="st4"
       width={153}
       height={86}
+      onClick={handleClick}
     />
     <rect
-      id="2-4-2"
+      id="2-2-2"
       x={987.3}
       y={227}
       className="st4"
       width={86}
       height={86}
+      onClick={handleClick}
     />
     <rect
-      id="2-1-14_1_"
+      id="2-1-4"
       x={1233.3}
       y={228}
       className="st4"
       width={77}
       height={80}
+      onClick={handleClick}
     />
     <text transform="matrix(1 0 0 1 64.3232 190.918)" className="st9 st12">
       {"2.4"}
@@ -1509,6 +1585,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={80}
       height={48}
+      onClick={handleClick}
     />
     <rect
       id="2-4-33"
@@ -1517,6 +1594,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       className="st4"
       width={45}
       height={48}
+      onClick={handleClick}
     />
     <text transform="matrix(1 0 0 1 212.3232 453.374)" className="st9 st11">
       {"33"}

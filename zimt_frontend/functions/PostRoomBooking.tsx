@@ -1,4 +1,3 @@
-import getDomain from "./getDomain"
 
 export type PostRquest = {
     startTime: string,
@@ -8,7 +7,7 @@ export type PostRquest = {
   }
 
 const postRoomBooking = async (id: number, req: PostRquest) => {
-    const url = `${getDomain()}/room/${id}`
+    const url = `/room/${id}`
     const test = "https://mocki.io/v1/091ee301-bfe2-4dc6-9db7-706ff9c78a65"
 
     const request =

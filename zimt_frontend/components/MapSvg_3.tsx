@@ -1,15 +1,50 @@
-import React, {useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import { BasicRoomDetails } from "../functions/fetchRooms";
+import getRoomId from "../functions/fetchId";
 
 type SvgComponentProps = {
-  handlePathClick: (id: string) => void;
+  setSelectedRoom: Dispatch<SetStateAction<BasicRoomDetails | undefined>>
+  roomArray: BasicRoomDetails[]
+  selectedRoom: BasicRoomDetails | undefined
 };
 
-const MapSvg_3: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
-  const handleClick = (event: React.MouseEvent<SVGPathElement>) => {
-    const pathId = event.currentTarget.id;
-    handlePathClick(pathId);
-    console.log(pathId);
-  };
+const MapSvg_3: React.FC<SvgComponentProps> = ({ setSelectedRoom, roomArray, selectedRoom }) => {
+  const handleSelectChange = () => {
+    var list = document.getElementsByClassName("selected");
+    // @ts-ignore
+    for (let item of list) {
+        item.style.fill = ""
+        item.classList.remove("selected")
+    }
+}
+
+const handleClick = (event: React.MouseEvent<SVGPathElement>) => {
+
+    handleSelectChange();
+
+    event.currentTarget.style.fill = "tomato"
+    event.currentTarget.classList.add("selected")
+    getRoomId(event.currentTarget.id).then(data => {
+        data?.id && setSelectedRoom(roomArray.find(room => room.id === data.id));
+    })
+};
+
+const convertroom2Name = (room : BasicRoomDetails) => {
+ return `${room.floor}-${room.building_section}-${room.room}${room.subroom_description && "-" + room.subroom_description}`
+}
+
+useEffect(() => { 
+    handleSelectChange();
+    if(selectedRoom){
+
+    const element =document.getElementById(convertroom2Name(selectedRoom)) 
+
+    console.log(convertroom2Name(selectedRoom))
+    // @ts-ignore
+    element?.classList.add("selected")
+    element && element.setAttribute("style","fill:tomato;")
+    }
+},[selectedRoom, setSelectedRoom])
 
   return (
 
@@ -28,7 +63,7 @@ const MapSvg_3: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
       >
         <style type="text/css">
           {
-            "\n\t.st0{fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n\t.st1{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st1:hover{fill:tomato}\n\t.st2{opacity:1;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st3{font-family:'MyriadPro-Regular';}\n\t.st4{font-size:24px;}\n\t.st5{font-size:34.1556px;}\n\t.st6{font-family:'Arial';}\n\t.st7{font-size:61.6679px;}\n"
+            "\n\t.st0{fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n\t.selected{fill:tomato}.st1{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st1:hover{fill:tomato}\n\t.st2{opacity:1;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st3{font-family:'MyriadPro-Regular';}\n\t.st4{font-size:24px;}\n\t.st5{font-size:34.1556px;}\n\t.st6{font-family:'Arial';}\n\t.st7{font-size:61.6679px;}\n"
           }
         </style>
         <polygon
