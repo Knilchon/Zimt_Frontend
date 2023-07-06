@@ -16,7 +16,6 @@ const getRoomDetails = async (id: number | undefined) => {
 
     const response: Response = await fetch(url,request)
     const data: PostRquest = await response.json()
-    console.log(data)
 
     return data
 }

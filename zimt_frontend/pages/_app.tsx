@@ -11,6 +11,7 @@ import LookupPage from '../components/lookupPage'
 import getRoomDetails from '../functions/fetchRoomDetails'
 import MapSvg from '../components/MapSvg'
 import MapSvg2 from '../components/MapSvg_2'
+import getRoomId from '../functions/fetchId'
 
 const InitalPostRequest: PostRquest = {
   startTime: "",
@@ -31,10 +32,6 @@ export default function App() {
     const temp = async () => await getRooms()
     temp().then(data => setRoomArray([...data.first,...data.second]))
   }, [selectedLevel])
-
-  useEffect(() => {
-    console.log(selectedLevel)
-  }, [selectedLevel, setSelectedLevel])
 
   useEffect(() => {
     getRoomDetails(selectedRoom?.id)
@@ -73,7 +70,7 @@ export default function App() {
         />
         <div className='map-body'>
           Put map here.
-              return (<MapSvg handlePathClick={() => {}}/>)
+          <MapSvg roomArray={roomArray} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
           {/*<LevelSelector selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />*/}
           {selectedRoom ? (<LookupPage selectedRoom={selectedRoom} className='lookup-page'/>):(<></>) }
           
