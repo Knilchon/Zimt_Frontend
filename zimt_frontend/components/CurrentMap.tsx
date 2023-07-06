@@ -5,7 +5,7 @@ import MapSvg_2 from "./MapSvg_2"
 import MapSvg_3 from "./MapSvg_3"
 
 interface ICurrentMapProps {
-    selectedLevel: number | undefined
+    selectedViewedLevel: number | undefined
     setSelectedRoom: Dispatch<SetStateAction<BasicRoomDetails | undefined>>
     roomArray: BasicRoomDetails[]
     selectedRoom: BasicRoomDetails | undefined
@@ -24,6 +24,6 @@ const CurrentMap = (props: ICurrentMapProps) => {
         }
     
     }
-    return <Map level={props.selectedLevel}/>
+    return <Map level={props.selectedViewedLevel}/>
 }
 export default CurrentMap

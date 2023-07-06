@@ -1,12 +1,12 @@
 
-export type PostRquest = {
+export type Booking = {
     startTime: string,
     endTime: string,
     teacher: string,
     group: string
   }
 
-const postRoomBooking = async (id: number, req: PostRquest) => {
+const postRoomBooking = async (id: number, req: Booking) => {
     const url = `/room/${id}`
     const test = "https://mocki.io/v1/091ee301-bfe2-4dc6-9db7-706ff9c78a65"
 

@@ -8,6 +8,7 @@ const lookupPage = (props: any) =>{
                 <b>Sitzplätze:</b> {props.selectedRoom.seats} <br/>
                 <b>Ausstattung:</b> {props.selectedRoom.quantity}x {props.selectedRoom.item_name}
             </div>
+            
         </div>
     )
 }

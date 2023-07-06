@@ -1,7 +1,7 @@
 import getRooms from '../functions/fetchRooms'
 import { useEffect, useState } from 'react'
 import { BasicRoomDetails } from '../functions/fetchRooms'
-import { PostRquest } from '../functions/PostRoomBooking'
+import { Booking } from '../functions/PostRoomBooking'
 import '../styles/_app.css'
 import Sidebar from '../components/sidebar'
 import Searchbar from '../components/searchbar'
@@ -10,7 +10,7 @@ import getRoomDetails from '../functions/fetchRoomDetails'
 import CurrentMap from '../components/CurrentMap'
 
 
-const InitalPostRequest: PostRquest = {
+const InitalPostRequest: Booking = {
   startTime: "",
   endTime: "",
   teacher: "",
@@ -21,9 +21,11 @@ export default function App() {
 
   const [roomArray, setRoomArray] = useState<BasicRoomDetails[]>([])
   const [selectedLevel, setSelectedLevel] = useState<number|undefined>(undefined)
+  const [selectedViewedLevel, setSelectedViewedLevel] = useState<number|undefined>(undefined)
   const [selectedRoom, setSelectedRoom] = useState<BasicRoomDetails | undefined>(undefined)
-  const [postRequest, setPostRequest] = useState<PostRquest>(InitalPostRequest)
+  const [postRequest, setPostRequest] = useState<Booking>(InitalPostRequest)
   const [inputText, setInputText] = useState("")
+  const [selectedRoomBookings,setSelectedRoomBookings] = useState<Booking[]| undefined>()
 
   useEffect(() => {
     const temp = async () => await getRooms()
@@ -31,11 +33,12 @@ export default function App() {
   }, [selectedLevel])
 
   useEffect(() => {
-    getRoomDetails(selectedRoom?.id)
+    getRoomDetails(selectedRoom?.id).then(data => { console.log(data); setSelectedRoomBookings(data)})
+    if(selectedRoom?.floor && selectedRoom?.floor !== selectedViewedLevel){setSelectedViewedLevel(selectedRoom?.floor)}
   }, [selectedRoom, setSelectedRoom])
 
-
   const handelLevelChange = (level: number) => {
+    setSelectedViewedLevel(level)
     setSelectedLevel(level)
   }
 
@@ -68,7 +71,7 @@ export default function App() {
           inputSearch={inputText}
         />
         <div className='map-body'>
-          <CurrentMap roomArray={roomArray} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} selectedLevel={selectedLevel} />
+          <CurrentMap roomArray={roomArray} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} selectedViewedLevel={selectedViewedLevel} />
           {selectedRoom ? (<LookupPage selectedRoom={selectedRoom} className='lookup-page'/>):(<></>) }
           
         </div>
