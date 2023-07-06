@@ -15,7 +15,7 @@ const getRoomDetails = async (id: number | undefined) => {
     }
 
     const response: Response = await fetch(url,request)
-    const data: Booking[] = await response.json()
+    const data = await response.json()
 
     return data
 }
