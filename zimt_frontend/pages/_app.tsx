@@ -9,6 +9,8 @@ import Searchbar from '../components/searchbar'
 import LevelSelector from '../components/LevelSelector'
 import LookupPage from '../components/lookupPage'
 import getRoomDetails from '../functions/fetchRoomDetails'
+import MapSvg from '../components/MapSvg'
+import MapSvg2 from '../components/MapSvg_2'
 
 const InitalPostRequest: PostRquest = {
   startTime: "",
@@ -71,6 +73,7 @@ export default function App() {
         />
         <div className='map-body'>
           Put map here.
+              return (<MapSvg handlePathClick={() => {}}/>)
           {/*<LevelSelector selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />*/}
           {selectedRoom ? (<LookupPage selectedRoom={selectedRoom} className='lookup-page'/>):(<></>) }
           
