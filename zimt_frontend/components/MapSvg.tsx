@@ -8,6 +8,7 @@ const MapSvg: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
   const handleClick = (event: React.MouseEvent<SVGPathElement>) => {
     const pathId = event.currentTarget.id;
     handlePathClick(pathId);
+    console.log(pathId);
   };
 
   return (
@@ -21,7 +22,7 @@ const MapSvg: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
 
   >
     <style>
-    {`.st0,.st1,.st2{fill:#bcbcbc;stroke:#000;stroke-miterlimit:10}.st0:hover,.st1:hover,.st2:hover{fill:tomato}.st1,.st2{fill:#fff}.st2{opacity:.7}.st4{font-family:'MyriadPro-Regular'}.st6{font-size:12px}.st7{font-size:34.1556px}.st8{fill:red}.st9{font-size:22.1902px}`}
+    {`.st0,.st1,.st2{fill:#bcbcbc;stroke:#000;stroke-miterlimit:10}.st1:hover,.st2:hover{fill:tomato}.st1,.st2{fill:#fff}.st2{opacity:.7}.st4{font-family:'Arial'}.st6{font-size:14px}.st7{font-size:34.1556px}.st8{fill:red}.st9{font-size:22.1902px}`}
     </style>
     <path
       id="back_x5F_print"
