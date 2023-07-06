@@ -2,11 +2,11 @@ body {
   margin: 0cm;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12pt;
-  background-color: #121212;
+  background-color: #243447;
 }
 
 .App-header {
-  background: #212121;
+  background: #122538;
   color: rgb(255, 255, 255);
   padding: 0 1% 0 1%;
   display: flex;
@@ -18,7 +18,7 @@ body {
 .sidebar{
   padding: 1rem;
   width: 13vw;
-  background-color: #2b2b2b;
+  background-color: #192a3e;
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -37,15 +37,9 @@ body {
 }
 
 .map-and-sidebar{
-    background-color: #323232;
+    background-color: #243447;
     display: flex;
     height: 90vh;
-}
-
-.RoomCard-List{
-  background-color: #3f3f3f;
-  overflow: scroll;
-  height: 88vh;
 }
 
 .map-body{
