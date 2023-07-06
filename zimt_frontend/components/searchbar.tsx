@@ -4,6 +4,7 @@ interface ISearchbarProps {
     className: string,
     inputText: string,
     setInputText: Dispatch<SetStateAction<string>>
+    placeholder?: string
 }
 
 const Searchbar = (props: ISearchbarProps) => {
