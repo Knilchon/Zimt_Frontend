@@ -60,7 +60,7 @@ const Sidebar = (props: ISidebar) => {
                 .filter((room) => 
                 props.selectedLevel ? room.floor === props.selectedLevel : room
                 )
-                .filter((room) => level === room.floor)
+                .filter((room) => level === room.floor).sort()
                 .map((room,index) => 
                 <RoomCard key={index} 
                 selectedRoom={props.selectedRoom}

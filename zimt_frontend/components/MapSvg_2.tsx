@@ -1,15 +1,50 @@
-import React, {useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import { BasicRoomDetails } from "../functions/fetchRooms";
+import getRoomId from "../functions/fetchId";
 
 type SvgComponentProps = {
-  handlePathClick: (id: string) => void;
+  setSelectedRoom: Dispatch<SetStateAction<BasicRoomDetails | undefined>>
+  roomArray: BasicRoomDetails[]
+  selectedRoom: BasicRoomDetails | undefined
 };
 
-const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
-  const handleClick = (event: React.MouseEvent<SVGPathElement>) => {
-    const pathId = event.currentTarget.id;
-    handlePathClick(pathId);
-    console.log(pathId);
-  };
+const MapSvg_2: React.FC<SvgComponentProps> = ({ setSelectedRoom, roomArray, selectedRoom }) => {
+  const handleSelectChange = () => {
+    var list = document.getElementsByClassName("selected");
+    // @ts-ignore
+    for (let item of list) {
+        item.style.fill = ""
+        item.classList.remove("selected")
+    }
+}
+
+const handleClick = (event: React.MouseEvent<SVGPathElement>) => {
+
+    handleSelectChange();
+
+    event.currentTarget.style.fill = "tomato"
+    event.currentTarget.classList.add("selected")
+    getRoomId(event.currentTarget.id).then(data => {
+        data?.id && setSelectedRoom(roomArray.find(room => room.id === data.id));
+    })
+};
+
+const convertroom2Name = (room : BasicRoomDetails) => {
+ return `${room.floor}-${room.building_section}-${room.room}${room.subroom_description && "-" + room.subroom_description}`
+}
+
+useEffect(() => { 
+    handleSelectChange();
+    if(selectedRoom){
+
+    const element =document.getElementById(convertroom2Name(selectedRoom)) 
+
+    console.log(convertroom2Name(selectedRoom))
+    // @ts-ignore
+    element?.classList.add("selected")
+    element && element.setAttribute("style","fill:tomato;")
+    }
+},[selectedRoom, setSelectedRoom])
 
   return (
     <svg
@@ -23,7 +58,7 @@ const MapSvg_2: React.FC<SvgComponentProps> = ({ handlePathClick }) => {
   >
     <style type="text/css">
       {
-        "\n\t.st0{display:none;}\n\t.st1{display:inline;fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n\t.st4:hover,.st2:hover{fill:tomato}\n\t.st2{display:inline;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st3{display:inline;}\n\t.st4{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st5{fill:none;stroke:#000000;stroke-miterlimit:10;}\n\t.st6{display:inline;opacity:1;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st7{opacity:0.7;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st8{display:inline;opacity:0.3;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st9{font-family:'Arial';}\n\t.st10{font-size:61.6679px;}\n\t.st11{font-size:14px;}\n\t.st12{font-size:34.1556px;}\n\t.st13{display:inline;fill:#FF0000;}\n\t.st14{font-size:22.1902px;}\n\t.st15{fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n"
+        "\n\t.st0{display:none;}\n\t.st1{display:inline;fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n\t.selected{fill:tomato}.st4:hover,.st2:hover{fill:tomato}\n\t.st2{display:inline;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st3{display:inline;}\n\t.st4{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}\n\t.st5{fill:none;stroke:#000000;stroke-miterlimit:10;}\n\t.st6{display:inline;opacity:1;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st7{opacity:0.7;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st8{display:inline;opacity:0.3;fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;enable-background:new    ;}\n\t.st9{font-family:'Arial';}\n\t.st10{font-size:61.6679px;}\n\t.st11{font-size:14px;}\n\t.st12{font-size:34.1556px;}\n\t.st13{display:inline;fill:#FF0000;}\n\t.st14{font-size:22.1902px;}\n\t.st15{fill:#BCBCBC;stroke:#000000;stroke-miterlimit:10;}\n"
       }
     </style>
     <g className="st0">

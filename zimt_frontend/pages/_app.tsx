@@ -1,4 +1,3 @@
-import type { AppProps } from 'next/app'
 import getRooms from '../functions/fetchRooms'
 import { useEffect, useState } from 'react'
 import { BasicRoomDetails } from '../functions/fetchRooms'
@@ -6,13 +5,10 @@ import { PostRquest } from '../functions/PostRoomBooking'
 import '../styles/_app.css'
 import Sidebar from '../components/sidebar'
 import Searchbar from '../components/searchbar'
-import LevelSelector from '../components/LevelSelector'
 import LookupPage from '../components/lookupPage'
 import getRoomDetails from '../functions/fetchRoomDetails'
-import MapSvg from '../components/MapSvg'
-import MapSvg2 from '../components/MapSvg_2'
-import MapSvg_2 from '../components/MapSvg_2'
-import MapSvg_3 from '../components/MapSvg_3'
+import CurrentMap from '../components/CurrentMap'
+
 
 const InitalPostRequest: PostRquest = {
   startTime: "",
@@ -33,10 +29,6 @@ export default function App() {
     const temp = async () => await getRooms()
     temp().then(data => setRoomArray([...data.first,...data.second]))
   }, [selectedLevel])
-
-  useEffect(() => {
-    console.log(selectedLevel)
-  }, [selectedLevel, setSelectedLevel])
 
   useEffect(() => {
     getRoomDetails(selectedRoom?.id)
@@ -76,8 +68,7 @@ export default function App() {
           inputSearch={inputText}
         />
         <div className='map-body'>
-          <MapSvg handlePathClick={() => {}}/>
-          {/*<LevelSelector selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} />*/}
+          <CurrentMap roomArray={roomArray} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} selectedLevel={selectedLevel} />
           {selectedRoom ? (<LookupPage selectedRoom={selectedRoom} className='lookup-page'/>):(<></>) }
           
         </div>
