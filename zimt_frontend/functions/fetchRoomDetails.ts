@@ -1,4 +1,4 @@
-import { PostRquest } from "./PostRoomBooking"
+import { Booking } from "./PostRoomBooking"
 
 const getRoomDetails = async (id: number | undefined) => {
 
@@ -15,7 +15,7 @@ const getRoomDetails = async (id: number | undefined) => {
     }
 
     const response: Response = await fetch(url,request)
-    const data: PostRquest = await response.json()
+    const data = await response.json()
 
     return data
 }

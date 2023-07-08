@@ -54,7 +54,7 @@ const Sidebar = (props: ISidebar) => {
                 {
                 levels.map((level,index) => {
                   return (<>
-                  <StyledButton onClick={() => props.handelLevelChange(level)}>Etage {level}</StyledButton>
+                  <StyledButton key={index} onClick={() => props.handelLevelChange(level)}>Etage {level}</StyledButton>
                 {filteredArray.length ? 
                 filteredArray
                 .filter((room) => 
@@ -71,19 +71,6 @@ const Sidebar = (props: ISidebar) => {
                 :
                 <div>No Results</div>}
                 </>)})}
-                
-            {/* {
-            levels.map(level => {
-              return <>
-                <button onClick={_ => props.handelLevelChange(level)}>Etage {level}</button>
-                {level.rooms.map(room => {
-                  test.roomNr = room
-                  return <button className={'room-button'} onClick={_ => handelRoomSelect(test)}>Raum {test.roomNr}</button> 
-                })}
-                <br />
-              </>
-            })
-          } */}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import getRooms from '../functions/fetchRooms'
 import { useEffect, useState } from 'react'
 import { BasicRoomDetails } from '../functions/fetchRooms'
-import { PostRquest } from '../functions/PostRoomBooking'
+import { Booking } from '../functions/PostRoomBooking'
 import '../styles/_app.css'
 import Sidebar from '../components/sidebar'
 import Searchbar from '../components/searchbar'
@@ -10,37 +10,38 @@ import getRoomDetails from '../functions/fetchRoomDetails'
 import CurrentMap from '../components/CurrentMap'
 
 
-const InitalPostRequest: PostRquest = {
-  startTime: "",
-  endTime: "",
-  teacher: "",
-  group: ""
+const InitalPostRequest: Booking = {
+  start: "",
+  end: "",
+  user: "",
+  groupe: ""
 }
 
 export default function App() {
 
   const [roomArray, setRoomArray] = useState<BasicRoomDetails[]>([])
-  const [selectedLevel, setSelectedLevel] = useState<number|undefined>(undefined)
+  const [selectedLevel, setSelectedLevel] = useState<number | undefined>(undefined)
+  const [selectedViewedLevel, setSelectedViewedLevel] = useState<number | undefined>(undefined)
   const [selectedRoom, setSelectedRoom] = useState<BasicRoomDetails | undefined>(undefined)
-  const [postRequest, setPostRequest] = useState<PostRquest>(InitalPostRequest)
+  const [postRequest, setPostRequest] = useState<Booking>(InitalPostRequest)
   const [inputText, setInputText] = useState("")
+  const [selectedRoomBookings, setSelectedRoomBookings] = useState<Booking[] | undefined>()
 
   useEffect(() => {
     const temp = async () => await getRooms()
-    temp().then(data => setRoomArray([...data.first,...data.second]))
+    temp().then(data => setRoomArray([...data.first, ...data.second]))
   }, [selectedLevel])
 
   useEffect(() => {
-    getRoomDetails(selectedRoom?.id)
+    selectedRoom?.id && getRoomDetails(selectedRoom.id).then(data => {
+      setSelectedRoomBookings(data)
+    })
+    if (selectedRoom?.floor && selectedRoom?.floor !== selectedViewedLevel) { setSelectedViewedLevel(selectedRoom?.floor) }
   }, [selectedRoom, setSelectedRoom])
 
-
   const handelLevelChange = (level: number) => {
+    setSelectedViewedLevel(level)
     setSelectedLevel(level)
-  }
-
-  const handelRequestChange = (newRequest: object) => {
-    setPostRequest({ ...postRequest, ...newRequest })
   }
 
   const handelRoomSelect = (room: BasicRoomDetails | undefined) => {
@@ -50,7 +51,7 @@ export default function App() {
   return (
     <>
       <header className='App-header'>
-        <div className='logo'/>
+        <div className='logo' />
         <h1>Room Reserver</h1>
         <Searchbar className='search-bar'
           inputText={inputText}
@@ -68,9 +69,15 @@ export default function App() {
           inputSearch={inputText}
         />
         <div className='map-body'>
-          <CurrentMap roomArray={roomArray} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} selectedLevel={selectedLevel} />
-          {selectedRoom ? (<LookupPage selectedRoom={selectedRoom} className='lookup-page'/>):(<></>) }
-          
+          <div className='map-div'>
+          <CurrentMap roomArray={roomArray} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} selectedViewedLevel={selectedViewedLevel} />
+          </div>
+          {selectedRoom ? (<LookupPage setSelectedRoomBookings={setSelectedRoomBookings} selectedRoom={selectedRoom} selectedRoomBookings={selectedRoomBookings} postRequest={postRequest} setPostRequest={setPostRequest}/>) : (<></>)}
+          <section className="sticky">
+          <div className="bubbles">
+            {Array.from(Array(10).keys()).map((_,i) => {return <div key={i} className="bubble"/>})}
+          </div>
+          </section>
         </div>
       </div>
     </>

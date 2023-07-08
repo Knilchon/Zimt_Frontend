@@ -1,28 +1,27 @@
 
-export type PostRquest = {
-    startTime: string,
-    endTime: string,
-    teacher: string,
-    group: string
+export type Booking = {
+    start: string,
+    end: string,
+    user: string,
+    groupe: string
   }
 
-const postRoomBooking = async (id: number, req: PostRquest) => {
-    const url = `/room/${id}`
-    const test = "https://mocki.io/v1/091ee301-bfe2-4dc6-9db7-706ff9c78a65"
+const postRoomBooking = async (id: number, req: Booking) => {
+    const url = `http://10.3.141.1:8000/booking/${id}`
 
     const request =
     {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
         },
         body: JSON.stringify(req)
     }
-
-    const response: Response = await fetch(test,request)
-    const data = await response.json()
-
-    return data
+    console.log(request)
+    const response: Response = await fetch(url,request)
+    const data = await response
+    console.log(data)
 }
 export default postRoomBooking

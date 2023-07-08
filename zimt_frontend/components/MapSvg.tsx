@@ -40,7 +40,6 @@ const MapSvg: React.FC<SvgComponentProps> = ({ roomArray, selectedRoom, setSelec
 
         const element =document.getElementById(convertroom2Name(selectedRoom)) 
 
-        console.log(convertroom2Name(selectedRoom))
         // @ts-ignore
         element?.classList.add("selected")
         element && element.setAttribute("style","fill:tomato;")
